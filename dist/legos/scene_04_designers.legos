@@ -1,0 +1,209 @@
+title: "Work Stream 3: The Designers - Stagecraft Volume"
+description: "The World Builders create the spatial interface in Unreal Engine: a domed cosmos with concentric rings, central forge light, and human-scale camera"
+location: "designer_studio"
+
+entities:
+  - id: "e_shield_base"
+    type: "structure"
+    name: "Shield of Achilles Base"
+    traits: ["circular", "bronze", "foundational"]
+    location: "center"
+  - id: "e_ring_1"
+    type: "zone"
+    name: "Ring 1 (Innermost)"
+    traits: ["central", "forge-lit"]
+    location: "inner_band"
+  - id: "e_ring_2"
+    type: "zone"
+    name: "Ring 2"
+    traits: ["city_at_peace", "celebrations"]
+    location: "middle_band"
+  - id: "e_ring_3"
+    type: "zone"
+    name: "Ring 3"
+    traits: ["city_at_war", "conflict"]
+    location: "middle_band"
+  - id: "e_ring_4"
+    type: "zone"
+    name: "Ring 4"
+    traits: ["agricultural", "seasonal"]
+    location: "outer_band"
+  - id: "e_ring_5"
+    type: "zone"
+    name: "Ring 5 (Outermost)"
+    traits: ["oceanus", "boundary"]
+    location: "outer_band"
+  - id: "e_starry_dome"
+    type: "structure"
+    name: "Starry Dome (The Cosmos)"
+    traits: ["celestial", "enclosing", "atmospheric"]
+    location: "sky"
+  - id: "e_forge_light"
+    type: "lighting"
+    name: "Central Glowing Forge Light"
+    traits: ["warm", "divine", "central"]
+    location: "center"
+  - id: "e_user_camera"
+    type: "camera"
+    name: "User Vantage Camera"
+    traits: ["human-scale", "walking", "immersive"]
+    location: "ring_surface"
+
+goals:
+  - id: "g_define_scale"
+    name: "Define consistent scale and navigation"
+    owner: "e_designers"
+  - id: "g_block_out_scene"
+    name: "Block out simple 3D environment in Unreal"
+    owner: "e_designers"
+  - id: "g_prevent_scope_creep"
+    name: "Build only Stagecraft Volume, not full detail"
+    owner: "e_designers"
+
+obstacles:
+  - id: "o_confusing_shape"
+    name: "Shield shape unclear - Sphere? Disk? Stage?"
+    affects: "g_define_scale"
+  - id: "o_scope_creep"
+    name: "Temptation to add fine detail prematurely"
+    affects: "g_prevent_scope_creep"
+  - id: "o_observer_vs_participant"
+    name: "User as observer vs participant unclear"
+    affects: "g_block_out_scene"
+
+shifts:
+  - id: "s_choose_stagecraft"
+    name: "Chose Stagecraft Volume model over sphere"
+    causes: ["o_confusing_shape"]
+    results_in: "g_define_scale"
+  - id: "s_lock_camera"
+    name: "Lock camera at human scale, walking on shield"
+    causes: ["o_observer_vs_participant"]
+    results_in: "g_block_out_scene"
+  - id: "s_director_signoff"
+    name: "Get Director sign-off before proceeding"
+    causes: ["o_scope_creep"]
+    results_in: "g_prevent_scope_creep"
+
+relations:
+  - "[contains] e_shield_base -> e_ring_1"
+  - "[contains] e_shield_base -> e_ring_2"
+  - "[contains] e_shield_base -> e_ring_3"
+  - "[contains] e_shield_base -> e_ring_4"
+  - "[contains] e_shield_base -> e_ring_5"
+  - "[covers] e_starry_dome -> e_shield_base"
+  - "[illuminates] e_forge_light -> e_shield_base"
+  - "[observes] e_user_camera -> e_shield_base"
+
+timeline:
+  - id: "t_stagecraft"
+    description: "Stagecraft Volume Development"
+    scenes:
+      - id: "sc_problem"
+        description: "THE PROBLEM: Shield shape is ambiguous"
+        entities: ["e_shield_base"]
+      - id: "sc_solution"
+        description: "THE SOLUTION: Block-out with forge, rings, dome"
+        entities: ["e_forge_light", "e_ring_1", "e_ring_2", "e_ring_3", "e_ring_4", "e_ring_5", "e_starry_dome"]
+      - id: "sc_camera"
+        description: "Camera locked at human scale on shield surface"
+        entities: ["e_user_camera"]
+      - id: "sc_priority"
+        description: "Priority gates: P0 -> P1 -> P2"
+        entities: []
+
+---
+0 FILE shield_scene_04_designers.mpd
+0 Name: Work Stream 3 - The Designers Stagecraft Volume
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  WORK STREAM 3: THE DESIGNERS (THE WORLD BUILDERS)              ║
+0 ║  The 'Stagecraft' Volume in Unreal Engine                       ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Designer Studio - Unreal Engine Workspace
+0 Entity: Shield Base, 5 Concentric Rings, Starry Dome, Forge Light, Camera
+0 Goal: Define scale & navigation consistency, block out scene
+0 Obstacle: Confusing shape, scope creep, observer vs participant
+0 Shift: Choose stagecraft model, lock human-scale camera, get director sign-off
+0 Solution: Simple blocked-out 3D environment ready for asset population
+0 //
+
+0 STEP 01: FLOOR - Designer's Grid Platform
+1  7  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: SHIELD BASE - Concentric Disk
+0 // Central disk representing the shield base
+1  366  0 -24 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+1  28  0 -48 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+0 STEP
+
+0 STEP 03: RING 1 - Innermost (Central)
+1  115  0 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 04: RING 2 - City at Peace
+1  10  20 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  10  -20 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+0 STEP
+
+0 STEP 05: RING 3 - City at War
+1  4  40 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  4  -40 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+0 STEP
+
+0 STEP 06: RING 4 - Agricultural
+1  10  60 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  10  -60 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+0 STEP
+
+0 STEP 07: RING 5 - Oceanus Boundary
+1  272  80 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  272  -80 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+0 STEP
+
+0 STEP 08: STARRY DOME (The Cosmos)
+0 // Dome piece representing celestial sphere
+1  272  0 -120 0  1 0 0  0 1 0  0 0 1  parts/30208.dat
+0 // Star elements on dome
+1  14  20 -140 20  1 0 0  0 1 0  0 0 1  parts/11609.dat
+1  14  -30 -150 -10  1 0 0  0 1 0  0 0 1  parts/11609.dat
+1  14  10 -160 -30  1 0 0  0 1 0  0 0 1  parts/11609.dat
+0 STEP
+
+0 STEP 09: CENTRAL FORGE LIGHT
+0 // Flame element at center
+1  25  0 -96 0  1 0 0  0 1 0  0 0 1  parts/64647.dat
+1  366  0 -84 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 10: USER CAMERA (Human Scale)
+0 // Camera minifig representation standing on shield
+1  7  40 -72 40  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  7  40 -96 40  1 0 0  0 1 0  0 0 1  parts/973.dat
+1  7  40 -120 40  1 0 0  0 1 0  0 0 1  parts/3626bp01.dat
+0 // Camera icon
+1  7  50 -100 40  1 0 0  0 1 0  0 0 1  parts/30089.dat
+0 STEP
+
+0 STEP 11: PRIORITY MARKERS (P0, P1, P2)
+1  10  -80 0 60  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  14  -40 0 60  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  71  0 0 60  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 STEP
+
+0 STEP 12: LABELS
+0 // Problem/Solution/Action markers
+1  4  -100 -24 -60  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  10  0 -24 -60  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  14  100 -24 -60  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 NOFILE

@@ -1,0 +1,184 @@
+title: "Stagecraft Mandate"
+description: "Define spatial interface before populating with agents: build only the Stagecraft Volume with fixed geography and human-scale camera"
+location: "director_office"
+
+entities:
+  - id: "e_stagecraft_volume"
+    type: "structure"
+    name: "Stagecraft Volume"
+    traits: ["spatial", "blocked-out", "foundational"]
+    location: "unreal_scene"
+  - id: "e_forge_light"
+    type: "lighting"
+    name: "Central Glowing Forge Light"
+    traits: ["warm", "divine", "focal"]
+    location: "center"
+  - id: "e_concentric_rings"
+    type: "structure"
+    name: "5 Concentric Raised Platforms"
+    traits: ["navigable", "zoned", "structured"]
+    location: "shield_surface"
+  - id: "e_starry_dome"
+    type: "structure"
+    name: "Starry Dome (The Cosmos)"
+    traits: ["enclosing", "celestial", "atmospheric"]
+    location: "sky"
+  - id: "e_human_camera"
+    type: "camera"
+    name: "Camera at Human Scale"
+    traits: ["participant", "immersive", "locked"]
+    location: "user_vantage"
+  - id: "e_director"
+    type: "role"
+    name: "The Director"
+    traits: ["approving", "spatial-authority"]
+    location: "oversight"
+
+goals:
+  - id: "g_prevent_scope_creep"
+    name: "Prevent scope creep by building only volume"
+    owner: "e_director"
+  - id: "g_fix_geography"
+    name: "Guarantee downstream logic aligns with fixed geography"
+    owner: "e_director"
+  - id: "g_establish_interface"
+    name: "Establish spatial interface before agent population"
+    owner: "e_designers"
+
+obstacles:
+  - id: "o_premature_detail"
+    name: "Temptation to add detail before structure is approved"
+    affects: "g_prevent_scope_creep"
+  - id: "o_shifting_geography"
+    name: "Geography shifts break downstream code"
+    affects: "g_fix_geography"
+
+shifts:
+  - id: "s_build_volume"
+    name: "Build only Stagecraft Volume in Unreal"
+    causes: ["o_premature_detail"]
+    results_in: "g_prevent_scope_creep"
+  - id: "s_lock_camera"
+    name: "Lock camera at human scale on platform"
+    causes: []
+    results_in: "g_establish_interface"
+  - id: "s_director_signoff"
+    name: "Obtain Director sign-off on platform spacing"
+    causes: ["o_shifting_geography"]
+    results_in: "g_fix_geography"
+
+relations:
+  - "[contains] e_stagecraft_volume -> e_forge_light"
+  - "[contains] e_stagecraft_volume -> e_concentric_rings"
+  - "[covers] e_starry_dome -> e_stagecraft_volume"
+  - "[observes] e_human_camera -> e_stagecraft_volume"
+  - "[approves] e_director -> e_stagecraft_volume"
+
+timeline:
+  - id: "t_mandate"
+    description: "Stagecraft Mandate Execution"
+    scenes:
+      - id: "sc_mandate_1"
+        description: "MANDATE: Build only Stagecraft Volume"
+        entities: ["e_stagecraft_volume"]
+      - id: "sc_mandate_2"
+        description: "MANDATE: Lock camera at human scale"
+        entities: ["e_human_camera"]
+      - id: "sc_mandate_3"
+        description: "MANDATE: Obtain Director sign-off"
+        entities: ["e_director"]
+      - id: "sc_blockout"
+        description: "BLOCK-OUT: Center + Rings + Sky"
+        entities: ["e_forge_light", "e_concentric_rings", "e_starry_dome"]
+
+---
+0 FILE shield_scene_08_mandate.mpd
+0 Name: Stagecraft Mandate
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  SHIELD OF ACHILLES: STAGECRAFT MANDATE                         ║
+0 ║  Define Spatial Interface Before Populating with Agents         ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Director's Office / Unreal Engine Workspace
+0 Entity: Stagecraft Volume, Forge Light, Rings, Dome, Camera, Director
+0 Goal: Prevent scope creep, fix geography, establish spatial interface
+0 Obstacle: Premature detail, shifting geography
+0 Shift: Build volume only, lock camera, get Director sign-off
+0 Solution: Approved spatial interface ready for agent population
+0 //
+0 // CRITICAL: Downstream logic code aligns with fixed geography
+0 //
+
+0 STEP 01: FLOOR - Director's Review Platform
+1  7  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: DESIGNER MANDATE PANEL (Left)
+0 // Panel with three mandates
+1  14  -100 -24 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 // Mandate 1: Build only Stagecraft
+1  10  -100 -48 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // Mandate 2: Lock camera
+1  10  -100 -48 0  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // Mandate 3: Director sign-off
+1  10  -100 -48 20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 STEP
+
+0 STEP 03: STAGECRAFT VOLUME (Center)
+0 // Concentric rings representation
+1  366  0 -24 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+1  28  0 -48 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+0 // Five ring indicators
+1  115  0 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  10  20 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  10  40 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  10  60 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+1  272  80 -72 0  1 0 0  0 1 0  0 0 1  parts/4032.dat
+0 STEP
+
+0 STEP 04: CENTRAL FORGE LIGHT
+0 // Glowing center
+1  25  0 -96 0  1 0 0  0 1 0  0 0 1  parts/64647.dat
+1  115  0 -84 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 05: STARRY DOME (Sky)
+0 // Dome covering scene
+1  272  0 -140 0  1 0 0  0 1 0  0 0 1  parts/30208.dat
+0 // Stars
+1  14  20 -160 20  1 0 0  0 1 0  0 0 1  parts/11609.dat
+1  14  -20 -170 -20  1 0 0  0 1 0  0 0 1  parts/11609.dat
+0 STEP
+
+0 STEP 06: HUMAN CAMERA (User Vantage)
+0 // Minifig with camera on platform
+1  7  60 -72 40  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  7  60 -96 40  1 0 0  0 1 0  0 0 1  parts/973.dat
+1  7  60 -120 40  1 0 0  0 1 0  0 0 1  parts/3626bp01.dat
+0 // Camera locked indicator
+1  14  80 -96 40  1 0 0  0 1 0  0 0 1  parts/30089.dat
+0 STEP
+
+0 STEP 07: ACTION PANEL (Right)
+0 // Block-out scene instructions
+1  10  100 -24 -20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  10  100 -24 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  10  100 -24 20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // Rationale panel
+1  14  100 -48 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 STEP
+
+0 STEP 08: CRITICAL BANNER
+0 // Warning/Critical marker at bottom
+1  4  0 0 80  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  4  40 0 80  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 STEP
+
+0 NOFILE

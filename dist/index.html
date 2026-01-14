@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shield of Achilles — 3D Scene Viewer</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-panel: rgba(15, 15, 20, 0.95);
+            --gold: #c9a227;
+            --gold-dim: #8b7020;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Layout */
+        .app {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            height: 100vh;
+        }
+
+        .app.compare-mode {
+            grid-template-columns: 280px 1fr 1fr;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.85rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .scenes-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .scene-item {
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+
+        .scene-item:hover {
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .scene-item.active {
+            background: rgba(201, 162, 39, 0.2);
+            border: 1px solid var(--gold);
+        }
+
+        .scene-thumb {
+            width: 50px;
+            height: 30px;
+            background: var(--bg-dark);
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .scene-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .scene-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .scene-id {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Viewer */
+        .viewer {
+            position: relative;
+            background: var(--bg-dark);
+        }
+
+        .viewer canvas {
+            display: block;
+        }
+
+        /* Controls overlay */
+        .controls {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ctrl-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-panel);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .ctrl-btn:hover {
+            border-color: var(--gold);
+            background: rgba(201, 162, 39, 0.2);
+        }
+
+        .ctrl-btn.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border-color: var(--gold);
+        }
+
+        /* Info panel */
+        .info-panel {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .scene-current-title {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        /* Snap points menu */
+        .snap-menu {
+            position: absolute;
+            top: 60px;
+            right: 1rem;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: none;
+        }
+
+        .snap-menu.open {
+            display: block;
+        }
+
+        .snap-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .snap-item:hover {
+            background: rgba(201, 162, 39, 0.2);
+        }
+
+        /* Stats overlay */
+        .stats {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            background: var(--bg-panel);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .stats.visible {
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-dark);
+            z-index: 100;
+        }
+
+        .loading-text {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hotkeys help */
+        .hotkeys {
+            position: absolute;
+            bottom: 80px;
+            right: 1rem;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.75rem;
+            display: none;
+        }
+
+        .hotkeys.visible {
+            display: block;
+        }
+
+        .hotkey-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .hotkey-key {
+            background: var(--bg-dark);
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app" id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">🛡 Shield of Achilles</div>
+                <input type="text" class="search-box" placeholder="Search scenes..." id="search">
+            </div>
+            <div class="scenes-list" id="scenes-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span class="loading-text">Loading...</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Viewer -->
+        <div class="viewer" id="viewer-1">
+            <div class="loading" id="loading-1">
+                <div class="spinner"></div>
+                <span class="loading-text">Loading scene...</span>
+            </div>
+
+            <div class="controls">
+                <button class="ctrl-btn" id="btn-grid" title="Toggle Grid (G)">⊞</button>
+                <button class="ctrl-btn" id="btn-snap" title="Camera Positions">📷</button>
+                <button class="ctrl-btn" id="btn-tour" title="Auto Tour (T)">▶</button>
+                <button class="ctrl-btn" id="btn-compare" title="Compare Mode (C)">⧉</button>
+                <button class="ctrl-btn" id="btn-fullscreen" title="Fullscreen (F)">⛶</button>
+                <button class="ctrl-btn" id="btn-screenshot" title="Screenshot (S)">📸</button>
+                <button class="ctrl-btn" id="btn-stats" title="Stats (D)">📊</button>
+                <button class="ctrl-btn" id="btn-help" title="Hotkeys (?)">?</button>
+            </div>
+
+            <div class="snap-menu" id="snap-menu"></div>
+
+            <div class="stats" id="stats">
+                FPS: <span id="fps">60</span><br>
+                Textures: <span id="tex-count">0</span><br>
+                Entities: <span id="entity-count">0</span>
+            </div>
+
+            <div class="hotkeys" id="hotkeys">
+                <div class="hotkey-row"><span>Next Scene</span> <span class="hotkey-key">→</span></div>
+                <div class="hotkey-row"><span>Prev Scene</span> <span class="hotkey-key">←</span></div>
+                <div class="hotkey-row"><span>Fullscreen</span> <span class="hotkey-key">F</span></div>
+                <div class="hotkey-row"><span>Screenshot</span> <span class="hotkey-key">S</span></div>
+                <div class="hotkey-row"><span>Toggle Grid</span> <span class="hotkey-key">G</span></div>
+                <div class="hotkey-row"><span>Compare Mode</span> <span class="hotkey-key">C</span></div>
+                <div class="hotkey-row"><span>Auto Tour</span> <span class="hotkey-key">T</span></div>
+                <div class="hotkey-row"><span>Dev Stats</span> <span class="hotkey-key">D</span></div>
+            </div>
+
+            <div class="info-panel">
+                <div>
+                    <span class="scene-current-title" id="current-title">No scene loaded</span>
+                </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" id="btn-prev">← Prev</button>
+                    <button class="nav-btn" id="btn-next">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second viewer (compare mode) -->
+        <div class="viewer" id="viewer-2" style="display: none;">
+            <div class="loading" id="loading-2">
+                <div class="spinner"></div>
+                <span class="loading-text">Loading scene...</span>
+            </div>
+            <div class="info-panel">
+                <span class="scene-current-title" id="current-title-2">Compare: Select scene</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // ====== STATE ======
+        let manifest = null;
+        let currentSceneIndex = 0;
+        let scenes = [];
+        let viewer1 = null;
+        let viewer2 = null;
+        let compareMode = false;
+        let tourInterval = null;
+        let gridHelper = null;
+        let showGrid = false;
+        let showStats = false;
+
+        // ====== VIEWER CLASS ======
+        class SceneViewer {
+            constructor(container, id) {
+                this.container = container;
+                this.id = id;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.controls = null;
+                this.entities = [];
+                this.textures = {};
+                this.animatedEntities = [];
+                this.clock = new THREE.Clock();
+
+                this.init();
+            }
+
+            init() {
+                const width = this.container.clientWidth;
+                const height = this.container.clientHeight;
+
+                // Scene
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x0a0a0f);
+
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 5000);
+                this.camera.position.set(0, 0, 1200);
+
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+                this.renderer.setSize(width, height);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.container.appendChild(this.renderer.domElement);
+
+                // Controls
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.05;
+                this.controls.minDistance = 200;
+                this.controls.maxDistance = 3000;
+
+                // Resize
+                window.addEventListener('resize', () => this.resize());
+
+                // Animation loop
+                this.animate();
+            }
+
+            resize() {
+                const width = this.container.clientWidth;
+                const height = this.container.clientHeight;
+                this.camera.aspect = width / height;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(width, height);
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+
+                const delta = this.clock.getDelta();
+                const elapsed = this.clock.getElapsedTime();
+
+                // Animate floating entities
+                this.animatedEntities.forEach(({ mesh, anim }) => {
+                    if (anim.type === 'float') {
+                        mesh.position.y += Math.sin(elapsed * anim.speed) * anim.amplitude * 0.01;
+                    }
+                });
+
+                this.controls.update();
+                this.renderer.render(this.scene, this.camera);
+
+                // Update FPS
+                if (this.id === 1 && showStats) {
+                    document.getElementById('fps').textContent = Math.round(1 / delta);
+                }
+            }
+
+            async loadScene(sceneData) {
+                // Clear previous
+                this.clearScene();
+
+                const json = sceneData;
+
+                // Setup environment
+                if (json.environment) {
+                    this.scene.background = new THREE.Color(json.environment.background);
+                    if (json.environment.fog && json.environment.fog.enabled) {
+                        this.scene.fog = new THREE.Fog(
+                            json.environment.fog.color || json.environment.background,
+                            json.environment.fog.near,
+                            json.environment.fog.far
+                        );
+                    }
+                }
+
+                // Setup camera
+                if (json.camera) {
+                    this.camera.position.fromArray(json.camera.position);
+                    this.controls.target.fromArray(json.camera.target);
+                    this.camera.fov = json.camera.fov || 50;
+                    this.camera.updateProjectionMatrix();
+                }
+
+                // Setup lights
+                if (json.lights) {
+                    json.lights.forEach(lightDef => {
+                        let light;
+                        switch (lightDef.type) {
+                            case 'hemisphere':
+                                light = new THREE.HemisphereLight(
+                                    lightDef.skyColor || 0xffffff,
+                                    lightDef.groundColor || 0x444444,
+                                    lightDef.intensity || 0.5
+                                );
+                                break;
+                            case 'directional':
+                                light = new THREE.DirectionalLight(
+                                    lightDef.color || 0xffffff,
+                                    lightDef.intensity || 1
+                                );
+                                light.position.fromArray(lightDef.position || [0, 100, 0]);
+                                break;
+                            case 'point':
+                                light = new THREE.PointLight(
+                                    lightDef.color || 0xffffff,
+                                    lightDef.intensity || 1,
+                                    1000
+                                );
+                                light.position.fromArray(lightDef.position || [0, 0, 0]);
+                                break;
+                            case 'ambient':
+                                light = new THREE.AmbientLight(lightDef.color || 0x404040, lightDef.intensity || 0.5);
+                                break;
+                        }
+                        if (light) {
+                            this.scene.add(light);
+                            this.entities.push(light);
+                        }
+                    });
+                }
+
+                // Load textures
+                const textureLoader = new THREE.TextureLoader();
+                if (json.assets && json.assets.textures) {
+                    for (const tex of json.assets.textures) {
+                        try {
+                            this.textures[tex.id] = await new Promise((resolve, reject) => {
+                                textureLoader.load(tex.src, resolve, undefined, reject);
+                            });
+                        } catch (e) {
+                            console.warn(`Failed to load texture: ${tex.src}`);
+                        }
+                    }
+                }
+
+                // Create entities
+                if (json.entities) {
+                    for (const ent of json.entities) {
+                        const mesh = this.createEntity(ent);
+                        if (mesh) {
+                            this.scene.add(mesh);
+                            this.entities.push(mesh);
+
+                            if (ent.animation) {
+                                this.animatedEntities.push({ mesh, anim: ent.animation });
+                            }
+                        }
+                    }
+                }
+
+                // Update stats
+                if (showStats) {
+                    document.getElementById('tex-count').textContent = Object.keys(this.textures).length;
+                    document.getElementById('entity-count').textContent = this.entities.length;
+                }
+
+                // Store navigation
+                this.navigation = json.navigation;
+            }
+
+            createEntity(ent) {
+                let geometry, material, mesh;
+
+                switch (ent.type) {
+                    case 'plane':
+                        geometry = new THREE.PlaneGeometry(ent.size[0], ent.size[1]);
+                        material = new THREE.MeshStandardMaterial({
+                            map: this.textures[ent.texture] || null,
+                            transparent: ent.material?.transparent || false,
+                            opacity: ent.material?.opacity || 1,
+                            emissive: new THREE.Color(0xffffff),
+                            emissiveIntensity: ent.material?.emissive || 0,
+                            side: THREE.DoubleSide
+                        });
+                        mesh = new THREE.Mesh(geometry, material);
+                        break;
+
+                    case 'cutoutPlane':
+                        const tex = this.textures[ent.fromImage];
+                        if (!tex) return null;
+
+                        // Create cutout from texture
+                        const canvas = document.createElement('canvas');
+                        const img = tex.image;
+                        const cutout = ent.cutout;
+
+                        const sx = Math.floor(cutout.x * img.width);
+                        const sy = Math.floor(cutout.y * img.height);
+                        const sw = Math.floor(cutout.w * img.width);
+                        const sh = Math.floor(cutout.h * img.height);
+
+                        canvas.width = sw;
+                        canvas.height = sh;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+
+                        const cutoutTex = new THREE.CanvasTexture(canvas);
+
+                        geometry = new THREE.PlaneGeometry(ent.size[0], ent.size[1]);
+                        material = new THREE.MeshStandardMaterial({
+                            map: cutoutTex,
+                            transparent: true,
+                            opacity: ent.material?.opacity || 1,
+                            emissive: new THREE.Color(0xffffff),
+                            emissiveIntensity: ent.material?.emissive || 0,
+                            side: THREE.DoubleSide,
+                            alphaTest: 0.1
+                        });
+                        mesh = new THREE.Mesh(geometry, material);
+                        break;
+
+                    case 'primitive':
+                        switch (ent.shape) {
+                            case 'box':
+                                geometry = new THREE.BoxGeometry(1, 1, 1);
+                                break;
+                            case 'sphere':
+                                geometry = new THREE.SphereGeometry(1, 32, 32);
+                                break;
+                            case 'cylinder':
+                                geometry = new THREE.CylinderGeometry(1, 1, 1, 32);
+                                break;
+                            default:
+                                geometry = new THREE.BoxGeometry(1, 1, 1);
+                        }
+                        material = new THREE.MeshStandardMaterial({
+                            color: ent.material?.color || 0xcccccc,
+                            metalness: ent.material?.metalness || 0.5,
+                            roughness: ent.material?.roughness || 0.5,
+                            transparent: ent.material?.opacity < 1,
+                            opacity: ent.material?.opacity || 1
+                        });
+                        mesh = new THREE.Mesh(geometry, material);
+                        if (ent.scale) mesh.scale.fromArray(ent.scale);
+                        break;
+
+                    default:
+                        return null;
+                }
+
+                if (mesh) {
+                    if (ent.position) mesh.position.fromArray(ent.position);
+                    if (ent.rotation) {
+                        mesh.rotation.x = THREE.MathUtils.degToRad(ent.rotation[0] || 0);
+                        mesh.rotation.y = THREE.MathUtils.degToRad(ent.rotation[1] || 0);
+                        mesh.rotation.z = THREE.MathUtils.degToRad(ent.rotation[2] || 0);
+                    }
+                    mesh.name = ent.id;
+                }
+
+                return mesh;
+            }
+
+            clearScene() {
+                this.entities.forEach(obj => {
+                    this.scene.remove(obj);
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) {
+                        if (obj.material.map) obj.material.map.dispose();
+                        obj.material.dispose();
+                    }
+                });
+                this.entities = [];
+                this.animatedEntities = [];
+
+                Object.values(this.textures).forEach(tex => tex.dispose());
+                this.textures = {};
+
+                this.scene.fog = null;
+            }
+
+            moveCameraTo(position, target, duration = 1000) {
+                const startPos = this.camera.position.clone();
+                const startTarget = this.controls.target.clone();
+                const endPos = new THREE.Vector3().fromArray(position);
+                const endTarget = new THREE.Vector3().fromArray(target);
+
+                const startTime = Date.now();
+
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
+                    const t = Math.min(elapsed / duration, 1);
+                    const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+                    this.camera.position.lerpVectors(startPos, endPos, eased);
+                    this.controls.target.lerpVectors(startTarget, endTarget, eased);
+
+                    if (t < 1) requestAnimationFrame(animate);
+                };
+
+                animate();
+            }
+
+            screenshot() {
+                const dataUrl = this.renderer.domElement.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `shield-scene-${Date.now()}.png`;
+                link.href = dataUrl;
+                link.click();
+            }
+
+            toggleGrid() {
+                if (gridHelper) {
+                    this.scene.remove(gridHelper);
+                    gridHelper = null;
+                } else {
+                    gridHelper = new THREE.GridHelper(2000, 40, 0xc9a227, 0x333333);
+                    gridHelper.rotation.x = Math.PI / 2;
+                    this.scene.add(gridHelper);
+                }
+            }
+        }
+
+        // ====== APP FUNCTIONS ======
+        async function loadManifest() {
+            try {
+                const response = await fetch('manifest.json');
+                manifest = await response.json();
+                scenes = manifest.scenes;
+                renderScenesList();
+                if (scenes.length > 0) {
+                    loadSceneByIndex(0);
+                }
+            } catch (e) {
+                console.error('Failed to load manifest:', e);
+                document.getElementById('scenes-list').innerHTML = `
+                    <div style="padding: 1rem; color: #ef4444;">
+                        Failed to load manifest.json<br>
+                        Run: python3 build.py
+                    </div>
+                `;
+            }
+        }
+
+        function renderScenesList() {
+            const container = document.getElementById('scenes-list');
+            container.innerHTML = scenes.map((scene, i) => `
+                <div class="scene-item ${i === currentSceneIndex ? 'active' : ''}" data-index="${i}">
+                    <img class="scene-thumb" src="${scene.page}" alt="" onerror="this.style.display='none'">
+                    <div class="scene-info">
+                        <div class="scene-title">${scene.title}</div>
+                        <div class="scene-id">${scene.id}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Click handlers
+            container.querySelectorAll('.scene-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    loadSceneByIndex(parseInt(item.dataset.index));
+                });
+            });
+        }
+
+        async function loadSceneByIndex(index) {
+            if (index < 0 || index >= scenes.length) return;
+
+            currentSceneIndex = index;
+            const sceneInfo = scenes[index];
+
+            // Update UI
+            document.querySelectorAll('.scene-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            document.getElementById('current-title').textContent = sceneInfo.title;
+            document.getElementById('loading-1').style.display = 'flex';
+
+            // Load scene JSON
+            try {
+                const response = await fetch(sceneInfo.scene);
+                const sceneData = await response.json();
+                await viewer1.loadScene(sceneData);
+                updateSnapMenu(sceneData.navigation?.snapPoints);
+            } catch (e) {
+                console.error('Failed to load scene:', e);
+            }
+
+            document.getElementById('loading-1').style.display = 'none';
+        }
+
+        function updateSnapMenu(snapPoints) {
+            const menu = document.getElementById('snap-menu');
+            if (!snapPoints || snapPoints.length === 0) {
+                menu.innerHTML = '<div class="snap-item">No positions defined</div>';
+                return;
+            }
+
+            menu.innerHTML = snapPoints.map((sp, i) => `
+                <div class="snap-item" data-index="${i}">${sp.name}</div>
+            `).join('');
+
+            menu.querySelectorAll('.snap-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const sp = snapPoints[parseInt(item.dataset.index)];
+                    viewer1.moveCameraTo(sp.cameraPos, sp.target);
+                    menu.classList.remove('open');
+                });
+            });
+        }
+
+        function toggleCompare() {
+            compareMode = !compareMode;
+            document.getElementById('app').classList.toggle('compare-mode', compareMode);
+            document.getElementById('viewer-2').style.display = compareMode ? 'block' : 'none';
+            document.getElementById('btn-compare').classList.toggle('active', compareMode);
+
+            if (compareMode && !viewer2) {
+                viewer2 = new SceneViewer(document.getElementById('viewer-2'), 2);
+            }
+
+            if (compareMode) {
+                viewer1.resize();
+                viewer2.resize();
+            }
+        }
+
+        function startTour() {
+            if (tourInterval) {
+                clearInterval(tourInterval);
+                tourInterval = null;
+                document.getElementById('btn-tour').classList.remove('active');
+                return;
+            }
+
+            document.getElementById('btn-tour').classList.add('active');
+
+            const nav = viewer1.navigation;
+            if (!nav || !nav.tour) return;
+
+            let tourIndex = 0;
+
+            const nextStop = () => {
+                if (tourIndex >= nav.tour.length) tourIndex = 0;
+                const stop = nav.tour[tourIndex];
+                const snapPoint = nav.snapPoints.find(sp => sp.name === stop.snapPoint);
+                if (snapPoint) {
+                    viewer1.moveCameraTo(snapPoint.cameraPos, snapPoint.target);
+                }
+                tourIndex++;
+            };
+
+            nextStop();
+            tourInterval = setInterval(nextStop, 4000);
+        }
+
+        // ====== INIT ======
+        function init() {
+            viewer1 = new SceneViewer(document.getElementById('viewer-1'), 1);
+            loadManifest();
+
+            // Button handlers
+            document.getElementById('btn-prev').addEventListener('click', () => {
+                loadSceneByIndex(currentSceneIndex - 1);
+            });
+
+            document.getElementById('btn-next').addEventListener('click', () => {
+                loadSceneByIndex(currentSceneIndex + 1);
+            });
+
+            document.getElementById('btn-fullscreen').addEventListener('click', () => {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.getElementById('app').requestFullscreen();
+                }
+            });
+
+            document.getElementById('btn-screenshot').addEventListener('click', () => {
+                viewer1.screenshot();
+            });
+
+            document.getElementById('btn-grid').addEventListener('click', () => {
+                viewer1.toggleGrid();
+                document.getElementById('btn-grid').classList.toggle('active');
+            });
+
+            document.getElementById('btn-snap').addEventListener('click', () => {
+                document.getElementById('snap-menu').classList.toggle('open');
+            });
+
+            document.getElementById('btn-compare').addEventListener('click', toggleCompare);
+
+            document.getElementById('btn-tour').addEventListener('click', startTour);
+
+            document.getElementById('btn-stats').addEventListener('click', () => {
+                showStats = !showStats;
+                document.getElementById('stats').classList.toggle('visible', showStats);
+                document.getElementById('btn-stats').classList.toggle('active', showStats);
+            });
+
+            document.getElementById('btn-help').addEventListener('click', () => {
+                document.getElementById('hotkeys').classList.toggle('visible');
+            });
+
+            // Search
+            document.getElementById('search').addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase();
+                document.querySelectorAll('.scene-item').forEach(item => {
+                    const title = item.querySelector('.scene-title').textContent.toLowerCase();
+                    item.style.display = title.includes(q) ? 'flex' : 'none';
+                });
+            });
+
+            // Keyboard
+            document.addEventListener('keydown', (e) => {
+                switch (e.key) {
+                    case 'ArrowRight': loadSceneByIndex(currentSceneIndex + 1); break;
+                    case 'ArrowLeft': loadSceneByIndex(currentSceneIndex - 1); break;
+                    case 'f': case 'F':
+                        document.getElementById('btn-fullscreen').click();
+                        break;
+                    case 's': case 'S':
+                        viewer1.screenshot();
+                        break;
+                    case 'g': case 'G':
+                        document.getElementById('btn-grid').click();
+                        break;
+                    case 'c': case 'C':
+                        toggleCompare();
+                        break;
+                    case 't': case 'T':
+                        startTour();
+                        break;
+                    case 'd': case 'D':
+                        document.getElementById('btn-stats').click();
+                        break;
+                    case '?':
+                        document.getElementById('hotkeys').classList.toggle('visible');
+                        break;
+                }
+            });
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

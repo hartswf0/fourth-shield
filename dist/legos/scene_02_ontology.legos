@@ -1,0 +1,213 @@
+title: "Humanist Ontology Template - Iliad 18"
+description: "Code-compliant schema template for structured graph population showing zone definition with entities, lighting, soundscape, and constraint rules"
+location: "humanist_workshop"
+
+entities:
+  - id: "e_zone_city_peace"
+    type: "zone"
+    name: "City at Peace"
+    traits: ["peaceful", "celebratory", "ordered"]
+    location: "inner_ring"
+  - id: "e_brides"
+    type: "entity_class"
+    name: "Brides"
+    traits: ["ceremonial", "processional"]
+    location: "inner_ring"
+  - id: "e_dancers"
+    type: "entity_class"
+    name: "Dancers"
+    traits: ["rhythmic", "celebratory"]
+    location: "inner_ring"
+  - id: "e_flute_players"
+    type: "entity_class"
+    name: "Flute Players"
+    traits: ["musical", "accompaniment"]
+    location: "inner_ring"
+  - id: "e_judges"
+    type: "entity_class"
+    name: "Judges"
+    traits: ["authority", "deliberative"]
+    location: "agora"
+  - id: "e_torchlight"
+    type: "lighting"
+    name: "Torchlight + Starlight"
+    traits: ["artificial", "warm", "evening"]
+    location: "city_at_peace"
+  - id: "e_hymenaios"
+    type: "soundscape"
+    name: "Hymenaios Chant with Pipes/Lyres"
+    traits: ["wedding", "sacred", "musical"]
+    location: "city_at_peace"
+  - id: "e_constraint_rule"
+    type: "constraint"
+    name: "No weapons allowed - Violence score = 0"
+    traits: ["peaceful", "limiting"]
+    location: "city_at_peace"
+  - id: "e_json_schema"
+    type: "artifact"
+    name: "Zone JSON Schema"
+    traits: ["machine-readable", "structured"]
+    location: "output"
+
+goals:
+  - id: "g_define_zone"
+    name: "Define complete zone specification"
+    owner: "e_humanists"
+  - id: "g_prevent_hallucination"
+    name: "Prevent AI from hallucinating narrative details"
+    owner: "e_humanists"
+  - id: "g_enable_integration"
+    name: "Enable direct integration with production pipeline"
+    owner: "e_humanists"
+
+obstacles:
+  - id: "o_vague_descriptions"
+    name: "Scholarly prose too vague for simulation"
+    affects: "g_define_zone"
+  - id: "o_ai_hallucination"
+    name: "AI inventing non-Homeric elements"
+    affects: "g_prevent_hallucination"
+
+shifts:
+  - id: "s_structure_data"
+    name: "Transform prose to JSON schema"
+    causes: ["o_vague_descriptions"]
+    results_in: "g_define_zone"
+  - id: "s_enforce_constraints"
+    name: "Add constraint rules to zone definition"
+    causes: ["o_ai_hallucination"]
+    results_in: "g_prevent_hallucination"
+
+relations:
+  - "[contains] e_zone_city_peace -> e_brides"
+  - "[contains] e_zone_city_peace -> e_dancers"
+  - "[contains] e_zone_city_peace -> e_flute_players"
+  - "[contains] e_zone_city_peace -> e_judges"
+  - "[illuminates] e_torchlight -> e_zone_city_peace"
+  - "[fills] e_hymenaios -> e_zone_city_peace"
+  - "[constrains] e_constraint_rule -> e_zone_city_peace"
+  - "[encodes] e_json_schema -> e_zone_city_peace"
+
+timeline:
+  - id: "t_ontology"
+    description: "Ontology Definition Process"
+    scenes:
+      - id: "sc_identify_zone"
+        description: "Identify zone from Iliad 18 text"
+        entities: ["e_zone_city_peace"]
+      - id: "sc_list_entities"
+        description: "List all entities within zone"
+        entities: ["e_brides", "e_dancers", "e_flute_players", "e_judges"]
+      - id: "sc_define_atmosphere"
+        description: "Define lighting and soundscape"
+        entities: ["e_torchlight", "e_hymenaios"]
+      - id: "sc_set_constraints"
+        description: "Set behavioral constraints"
+        entities: ["e_constraint_rule"]
+      - id: "sc_export_schema"
+        description: "Export as JSON schema"
+        entities: ["e_json_schema"]
+
+---
+0 FILE shield_scene_02_ontology.mpd
+0 Name: Humanist Ontology Template - City at Peace
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  HUMANIST ONTOLOGY TEMPLATE: ILIAD 18                           ║
+0 ║  Code-Compliant Schema for Structured Graph Population          ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Humanist Workshop - Schema Drafting Table
+0 Entity: Zone(City_at_Peace), Brides, Dancers, Flute Players, Judges
+0 Goal: Define machine-readable zone specification
+0 Obstacle: Vague prose, AI hallucination risk
+0 Shift: Prose converted to JSON with constraint rules
+0 Solution: Structured schema with Zone_ID, Entities, Lighting, Sound, Rules
+0 //
+
+0 STEP 01: FLOOR - Scholar's Workshop
+1  28  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  28  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: SCROLL/PAPYRUS REPRESENTATION (Left - Input)
+0 // Ancient text scroll with Iliad 18 description
+1  19  -120 -24 0  1 0 0  0 1 0  0 0 1  parts/4738a.dat
+1  19  -120 -48 0  1 0 0  0 1 0  0 0 1  parts/4738a.dat
+1  25  -120 -72 0  1 0 0  0 1 0  0 0 1  parts/3023.dat
+0 // Greek column base
+1  7  -120 0 40  1 0 0  0 1 0  0 0 1  parts/3062b.dat
+1  7  -120 0 -40  1 0 0  0 1 0  0 0 1  parts/3062b.dat
+0 STEP
+
+0 STEP 03: JSON SCHEMA DISPLAY (Center - Output)
+0 // Computer terminal showing JSON structure
+1  7  0 -24 0  1 0 0  0 1 0  0 0 1  parts/3039.dat
+1  7  0 -48 0  1 0 0  0 1 0  0 0 1  parts/3039.dat
+1  15  0 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // JSON brackets represented as tiles
+1  14  -30 -48 0  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  14  30 -48 0  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 STEP
+
+0 STEP 04: ZONE_ID MARKER - "City_at_Peace"
+1  115  60 -24 -60  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  297  60 -48 -60  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 STEP
+
+0 STEP 05: ENTITIES ARRAY - Minifig Representations
+0 // Bride figure (white)
+1  15  80 -24 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  15  80 -48 -20  1 0 0  0 1 0  0 0 1  parts/973.dat
+0 // Dancer figure (pink)
+1  5  100 -24 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  5  100 -48 -20  1 0 0  0 1 0  0 0 1  parts/973.dat
+0 // Flute player figure (tan)
+1  19  120 -24 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  19  120 -48 -20  1 0 0  0 1 0  0 0 1  parts/973.dat
+0 // Judge figure (dark blue)
+1  272  140 -24 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  272  140 -48 -20  1 0 0  0 1 0  0 0 1  parts/973.dat
+0 STEP
+
+0 STEP 06: LIGHTING_CONDITION - Torchlight + Starlight
+0 // Torch elements (orange flame)
+1  366  60 -24 40  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  25  60 -48 40  1 0 0  0 1 0  0 0 1  parts/64647.dat
+0 // Star element
+1  14  80 -72 40  1 0 0  0 1 0  0 0 1  parts/11609.dat
+0 STEP
+
+0 STEP 07: SOUNDSCAPE - Hymenaios with Pipes/Lyres
+0 // Musical instrument tile
+1  297  100 -24 40  1 0 0  0 1 0  0 0 1  parts/3022.dat
+0 // Sound wave representation (curved elements)
+1  7  120 -24 40  1 0 0  0 1 0  0 0 1  parts/50950.dat
+0 STEP
+
+0 STEP 08: CONSTRAINT_RULE - Violence = 0
+0 // Red "no" symbol (blocked weapons)
+1  4  140 -24 40  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 // Crossed-out sword
+1  71  140 -48 40  1 0 0  0 1 0  0 0 1  parts/3847.dat
+0 STEP
+
+0 STEP 09: TRANSFORMATION ARROW
+0 // Arrow from scroll to JSON
+1  14  -60 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+1  14  -40 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+0 STEP
+
+0 STEP 10: ANNOTATION MARKERS
+0 // Icon markers for each field type
+1  39  60 -84 -60  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  39  60 -84 -20  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  39  60 -84 40  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 NOFILE

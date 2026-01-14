@@ -1,0 +1,216 @@
+title: "Work Stream 2: The Techs - Material Pipeline"
+description: "From generic prompts to inverse-rendering experiments: the full material validation loop with roughness and metallic map focus"
+location: "material_lab"
+
+entities:
+  - id: "e_base_sd"
+    type: "tool"
+    name: "Base SD/MidJourney Prompt"
+    traits: ["generic", "uncontrolled", "hallucinating"]
+    location: "input"
+  - id: "e_generic_bronze"
+    type: "output"
+    name: "Generic Bronze (Plastic Look)"
+    traits: ["wrong", "synthetic", "modern"]
+    location: "fail_path"
+  - id: "e_oxidized_bronze"
+    type: "reference"
+    name: "Oxidized Bronze Reference"
+    traits: ["authentic", "patina", "archaeological"]
+    location: "training_data"
+  - id: "e_gold_inlay"
+    type: "reference"
+    name: "Gold Inlay Reference"
+    traits: ["precious", "detailed", "authentic"]
+    location: "training_data"
+  - id: "e_katsikis_armor"
+    type: "reference"
+    name: "Dimitrios Katsikis Armor"
+    traits: ["reconstructed", "handcrafted", "reference"]
+    location: "training_data"
+  - id: "e_lora_model"
+    type: "model"
+    name: "style_bronze_age LoRA"
+    traits: ["fine-tuned", "specialized", "trained"]
+    location: "training_output"
+  - id: "e_bronze_phone_test"
+    type: "test"
+    name: "Bronze Phone Test"
+    traits: ["validation", "binary", "quality-check"]
+    location: "validation"
+  - id: "e_hephaestus_artifact"
+    type: "output"
+    name: "Hephaestus Artifact"
+    traits: ["authentic", "museum-quality", "correct"]
+    location: "pass_path"
+  - id: "e_roughness_map"
+    type: "map"
+    name: "Roughness Map (Light Diffusion)"
+    traits: ["micro-surface", "texture", "PBR"]
+    location: "technical_focus"
+  - id: "e_metallic_map"
+    type: "map"
+    name: "Metallic Map (Material Definition)"
+    traits: ["reflectivity", "material-type", "PBR"]
+    location: "technical_focus"
+
+goals:
+  - id: "g_authentic_materials"
+    name: "Generate museum-authentic material appearances"
+    owner: "e_techs"
+  - id: "g_consistent_pbr"
+    name: "Consistent roughness and metallic map values"
+    owner: "e_techs"
+  - id: "g_eliminate_plastic"
+    name: "Eliminate plastic/steampunk aesthetics"
+    owner: "e_techs"
+
+obstacles:
+  - id: "o_plastic_look"
+    name: "Default outputs have plastic/synthetic look"
+    affects: "g_eliminate_plastic"
+  - id: "o_inconsistent_pbr"
+    name: "PBR values inconsistent across assets"
+    affects: "g_consistent_pbr"
+  - id: "o_hallucinated_materials"
+    name: "Model invents non-bronze materials"
+    affects: "g_authentic_materials"
+
+shifts:
+  - id: "s_scrape_curate"
+    name: "Step 1: Scrape & Curate reference data"
+    causes: []
+    results_in: "g_authentic_materials"
+  - id: "s_train_lora"
+    name: "Step 2: Train style_bronze_age LoRA"
+    causes: ["o_plastic_look"]
+    results_in: "g_eliminate_plastic"
+  - id: "s_validate"
+    name: "Step 3: Validate with Bronze Phone test"
+    causes: ["o_inconsistent_pbr"]
+    results_in: "g_consistent_pbr"
+
+relations:
+  - "[produces] e_base_sd -> e_generic_bronze"
+  - "[trains] e_oxidized_bronze -> e_lora_model"
+  - "[trains] e_gold_inlay -> e_lora_model"
+  - "[trains] e_katsikis_armor -> e_lora_model"
+  - "[validates] e_bronze_phone_test -> e_lora_model"
+  - "[rejects] e_bronze_phone_test -> e_generic_bronze"
+  - "[accepts] e_bronze_phone_test -> e_hephaestus_artifact"
+  - "[defines] e_roughness_map -> e_hephaestus_artifact"
+  - "[defines] e_metallic_map -> e_hephaestus_artifact"
+
+timeline:
+  - id: "t_material_pipeline"
+    description: "Material Pipeline Flow"
+    scenes:
+      - id: "sc_problem"
+        description: "PROBLEM: Base prompts produce plastic results"
+        entities: ["e_base_sd", "e_generic_bronze"]
+      - id: "sc_step1"
+        description: "STEP 1: Scrape & curate reference data"
+        entities: ["e_oxidized_bronze", "e_gold_inlay", "e_katsikis_armor"]
+      - id: "sc_step2"
+        description: "STEP 2: Train LoRA on authentic materials"
+        entities: ["e_lora_model"]
+      - id: "sc_step3"
+        description: "STEP 3: Validate with Bronze Phone test"
+        entities: ["e_bronze_phone_test"]
+      - id: "sc_pass"
+        description: "PASS: Hephaestus-quality artifact"
+        entities: ["e_hephaestus_artifact", "e_roughness_map", "e_metallic_map"]
+
+---
+0 FILE shield_scene_07_techs_pipeline.mpd
+0 Name: Work Stream 2 - The Techs Material Pipeline
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  WORK STREAM 2: THE TECHS (THE PIPELINE TEAM)                   ║
+0 ║  Material Pipeline: Generic Prompts to Inverse-Rendering        ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Material Lab - PBR Validation Station
+0 Entity: Base SD, LoRA Model, Bronze Phone Test, Roughness/Metallic Maps
+0 Goal: Authentic materials, consistent PBR, eliminate plastic
+0 Obstacle: Plastic look, inconsistent PBR, hallucinated materials
+0 Shift: Scrape -> Train LoRA -> Validate with Bronze Phone
+0 Solution: Hephaestus-quality artifacts with proper roughness/metallic
+0 //
+
+0 STEP 01: FLOOR - Lab Platform
+1  7  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  160 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: PROBLEM - Plastic Look (Far Left)
+0 // Generic bronze (wrong)
+1  71  -120 -24 0  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  71  -120 -48 0  1 0 0  0 1 0  0 0 1  parts/3005.dat
+0 // X marker (fail)
+1  4  -120 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 03: STEP 1 - Reference Data (Left)
+0 // Oxidized bronze sample
+1  366  -60 -24 -30  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // Gold inlay sample
+1  115  -60 -24 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // Katsikis armor sample
+1  28  -60 -24 30  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 04: STEP 2 - LoRA Training (Center)
+0 // Neural network representation
+1  39  0 -24 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  39  0 -48 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 // Parameter tuning knobs
+1  7  -20 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  7  0 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  7  20 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 05: STEP 3 - Bronze Phone Test (Right)
+0 // Phone icon
+1  7  60 -24 0  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+1  7  60 -48 0  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 // Validation indicator
+1  14  60 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 06: FAIL PATH (Upper Right)
+0 // Steampunk generic (wrong)
+1  71  100 -24 -30  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  4  100 -48 -30  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 07: PASS PATH (Lower Right)
+0 // Hephaestus artifact (correct)
+1  366  100 -24 30  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  28  100 -48 30  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  10  100 -72 30  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 STEP
+
+0 STEP 08: TECHNICAL FOCUS - PBR Maps (Far Right)
+0 // Roughness map gradient
+1  71  140 -24 -20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  7  160 -24 -20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // Metallic map gradient
+1  71  140 -24 20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  297  160 -24 20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 09: ITERATION LOGGING (Bottom)
+1  14  -40 0 60  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  14  0 0 60  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  14  40 0 60  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  14  80 0 60  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 STEP
+
+0 NOFILE

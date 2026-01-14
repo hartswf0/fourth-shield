@@ -1,0 +1,237 @@
+title: "Shield Production Pipeline & Triage Strategy"
+description: "Master overview showing the transformation from Brainstorming/Chaos to Execution/Order through three tribes: Humanists, Techs, and Designers"
+location: "forge_command_center"
+
+entities:
+  - id: "e_humanists"
+    type: "tribe"
+    name: "The Humanists"
+    traits: ["ontological", "scholarly", "interpretive"]
+    role: "Ontology Engineers - Define world logic"
+    location: "triage_station"
+  - id: "e_techs"
+    type: "tribe"
+    name: "The Techs"
+    traits: ["technical", "pipeline-focused", "material"]
+    role: "Pipeline Builders - Process museum data to LoRA"
+    location: "triage_station"
+  - id: "e_designers"
+    type: "tribe"
+    name: "The Designers"
+    traits: ["spatial", "visual", "world-building"]
+    role: "World Builders - Construct 3D environments"
+    location: "triage_station"
+  - id: "e_schema"
+    type: "artifact"
+    name: "Schema (Alpha)"
+    traits: ["structured", "machine-readable"]
+    location: "output_zone"
+  - id: "e_substrate"
+    type: "artifact"
+    name: "Substrate (Beta)"
+    traits: ["textured", "bronze-authentic"]
+    location: "output_zone"
+  - id: "e_logic_interface"
+    type: "artifact"
+    name: "Logic & Spatial Interface (Gold)"
+    traits: ["navigable", "spatially-defined"]
+    location: "output_zone"
+  - id: "e_auden_button"
+    type: "mechanism"
+    name: "Auden Button"
+    traits: ["toggle", "critique-layer"]
+    location: "output_zone"
+  - id: "e_delivered_artifact"
+    type: "artifact"
+    name: "Delivered Artifact"
+    traits: ["complete", "shield-ready"]
+    location: "execution_zone"
+
+goals:
+  - id: "g_transform_chaos"
+    name: "Transform Brainstorming/Chaos into Execution/Order"
+    owner: "e_humanists"
+  - id: "g_produce_schema"
+    name: "Produce machine-readable ontology schema"
+    owner: "e_humanists"
+  - id: "g_produce_substrate"
+    name: "Produce authentic bronze material substrate"
+    owner: "e_techs"
+  - id: "g_produce_spatial"
+    name: "Produce navigable 3D spatial interface"
+    owner: "e_designers"
+  - id: "g_deliver_shield"
+    name: "Deliver complete Shield artifact"
+    owner: "e_humanists"
+
+obstacles:
+  - id: "o_chaos"
+    name: "Unstructured brainstorming scattered across domains"
+    affects: "g_transform_chaos"
+  - id: "o_hallucination"
+    name: "AI hallucinating anachronistic elements"
+    affects: "g_produce_substrate"
+  - id: "o_scope_creep"
+    name: "Scope creep threatening spatial consistency"
+    affects: "g_produce_spatial"
+
+shifts:
+  - id: "s_triage"
+    name: "Triage prioritization gates work into P0/P1/P2/P3"
+    causes: ["o_chaos"]
+    results_in: "g_transform_chaos"
+  - id: "s_schema_complete"
+    name: "Schema Alpha deliverable complete"
+    causes: []
+    results_in: "g_produce_schema"
+  - id: "s_substrate_validated"
+    name: "Substrate passes Bronze Phone test"
+    causes: ["o_hallucination"]
+    results_in: "g_produce_substrate"
+  - id: "s_spatial_locked"
+    name: "Spatial interface locked at human scale"
+    causes: ["o_scope_creep"]
+    results_in: "g_produce_spatial"
+
+relations:
+  - "[produces] e_humanists -> e_schema"
+  - "[produces] e_techs -> e_substrate"
+  - "[produces] e_designers -> e_logic_interface"
+  - "[combines] e_schema + e_substrate + e_logic_interface -> e_auden_button"
+  - "[gates] e_auden_button -> e_delivered_artifact"
+
+timeline:
+  - id: "t_pipeline"
+    description: "Production Pipeline Flow"
+    scenes:
+      - id: "sc_triage"
+        description: "Triage station receives chaotic input"
+        entities: ["e_humanists", "e_techs", "e_designers"]
+      - id: "sc_parallel_work"
+        description: "Three tribes work in parallel streams"
+        entities: ["e_schema", "e_substrate", "e_logic_interface"]
+      - id: "sc_convergence"
+        description: "Outputs converge at Auden Button"
+        entities: ["e_auden_button"]
+      - id: "sc_delivery"
+        description: "Final artifact delivered"
+        entities: ["e_delivered_artifact"]
+
+---
+0 FILE shield_scene_01_pipeline.mpd
+0 Name: Shield Production Pipeline Overview
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  SHIELD OF ACHILLES: PRODUCTION PIPELINE & TRIAGE STRATEGY      ║
+0 ║  From Brainstorming (Chaos) to Execution (Order)                ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Forge Command Center - Pipeline Control Room
+0 Entity: Humanists (gold), Techs (teal), Designers (bronze)
+0 Goal: Transform chaos into ordered Shield artifact
+0 Obstacle: Unstructured input, hallucination, scope creep
+0 Shift: Triage gates input -> parallel work streams -> convergence
+0 Solution: Three tribes produce Schema, Substrate, Spatial Interface
+0 //
+0 // VERSION MARKERS: V1.0 HOMER | V2.0 VIRGIL | V3.0 AUDEN | V4.0 PROJECT
+0 //
+
+0 STEP 01: FLOOR - Main Platform (480 x 320 studs)
+0 // Bronze-toned baseplate representing the forge floor
+1  366  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  366  160 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  366  -160 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: TRIAGE STATION (Left Zone - Chaos Intake)
+0 // Swirling gear mechanism representing chaos input
+1  71  -200 -24 0  1 0 0  0 1 0  0 0 1  parts/3648.dat
+1  71  -200 -48 0  1 0 0  0 1 0  0 0 1  parts/3649.dat
+1  72  -180 -24 20  1 0 0  0 1 0  0 0 1  parts/3647.dat
+0 // Triage label tile
+1  14  -200 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 03: HUMANIST STATION (Upper Left)
+0 // Gold-toned workstation for Ontology team
+1  115  -120 -24 -80  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  115  -120 -48 -80  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  297  -100 -24 -80  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // Scroll/book element for ontology
+1  28  -120 -72 -80  1 0 0  0 1 0  0 0 1  parts/4738a.dat
+0 STEP
+
+0 STEP 04: TECHS STATION (Center)
+0 // Teal-toned pipeline hub
+1  39  0 -24 -40  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  39  0 -48 -40  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  39  20 -24 -40  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 // Computer/data terminal
+1  7  0 -72 -40  1 0 0  0 1 0  0 0 1  parts/3039.dat
+0 STEP
+
+0 STEP 05: DESIGNERS STATION (Upper Right)
+0 // Bronze-toned spatial design platform
+1  366  120 -24 -80  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  366  120 -48 -80  1 0 0  0 1 0  0 0 1  parts/3005.dat
+0 // Dome element for "Stagecraft Volume"
+1  19  120 -72 -80  1 0 0  0 1 0  0 0 1  parts/30208.dat
+0 STEP
+
+0 STEP 06: SCHEMA OUTPUT (Alpha)
+0 // Yellow box representing JSON schema output
+1  14  -60 -24 60  1 0 0  0 1 0  0 0 1  parts/3003.dat
+1  14  -60 -48 60  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 STEP
+
+0 STEP 07: SUBSTRATE OUTPUT (Beta)
+0 // Bronze/copper cubes representing material assets
+1  366  0 -24 60  1 0 0  0 1 0  0 0 1  parts/3003.dat
+1  28  0 -48 60  1 0 0  0 1 0  0 0 1  parts/3003.dat
+1  366  20 -24 60  1 0 0  0 1 0  0 0 1  parts/3003.dat
+0 STEP
+
+0 STEP 08: LOGIC INTERFACE OUTPUT (Gold)
+0 // Gold platform representing spatial interface
+1  115  60 -24 60  1 0 0  0 1 0  0 0 1  parts/3020.dat
+1  115  60 -48 60  1 0 0  0 1 0  0 0 1  parts/3023.dat
+0 STEP
+
+0 STEP 09: AUDEN BUTTON (Toggle Mechanism)
+0 // Large round button element - the critique toggle
+1  7  120 -24 60  1 0 0  0 1 0  0 0 1  parts/4073.dat
+1  71  120 -48 60  1 0 0  0 1 0  0 0 1  parts/6141.dat
+0 STEP
+
+0 STEP 10: DELIVERED ARTIFACT (Shield)
+0 // Shield piece representing final output
+1  115  180 -24 0  1 0 0  0 1 0  0 0 1  parts/3846.dat
+1  297  180 -48 0  1 0 0  0 1 0  0 0 1  parts/59231.dat
+0 STEP
+
+0 STEP 11: CONNECTOR ARROWS (Pipeline Flow)
+0 // Technic axles representing flow arrows
+1  14  -100 -36 -40  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+1  14  -40 -36 20  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+1  14  40 -36 60  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+1  14  100 -36 60  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+0 STEP
+
+0 STEP 12: VERSION TIMELINE MARKERS
+0 // V1.0 Homer marker
+1  28  -160 -24 100  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // V2.0 Virgil marker
+1  28  -80 -24 100  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // V3.0 Auden marker
+1  28  0 -24 100  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // V4.0 Project marker (highlighted)
+1  115  80 -24 100  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  115  80 -48 100  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 STEP
+
+0 NOFILE

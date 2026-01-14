@@ -1,0 +1,582 @@
+{
+  "id": "0001",
+  "title": "Page 1: 1",
+  "sourceImage": "../pages/0001.png",
+  "units": {
+    "system": "pixels",
+    "scale": 1
+  },
+  "camera": {
+    "type": "perspective",
+    "position": [
+      0,
+      0,
+      1200
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ],
+    "fov": 50
+  },
+  "environment": {
+    "background": "#0a0a0f",
+    "fog": {
+      "enabled": true,
+      "color": "#0a0a0f",
+      "near": 800,
+      "far": 2000
+    }
+  },
+  "lights": [
+    {
+      "type": "hemisphere",
+      "skyColor": "#c9a227",
+      "groundColor": "#0a0a0f",
+      "intensity": 0.4
+    },
+    {
+      "type": "directional",
+      "position": [
+        300,
+        600,
+        400
+      ],
+      "intensity": 1.0,
+      "color": "#ffffff"
+    },
+    {
+      "type": "point",
+      "position": [
+        -400,
+        300,
+        500
+      ],
+      "intensity": 0.6,
+      "color": "#cd7f32"
+    },
+    {
+      "type": "point",
+      "position": [
+        400,
+        -200,
+        500
+      ],
+      "intensity": 0.4,
+      "color": "#2dd4bf"
+    }
+  ],
+  "assets": {
+    "textures": [
+      {
+        "id": "page",
+        "src": "../pages/0001.png"
+      }
+    ],
+    "ldraw": []
+  },
+  "entities": [
+    {
+      "id": "background",
+      "type": "plane",
+      "texture": "page",
+      "size": [
+        1920,
+        1080
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": {
+        "transparent": false,
+        "opacity": 1.0,
+        "emissive": 0.02
+      }
+    },
+    {
+      "id": "title-bar",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.05,
+        "y": 0.02,
+        "w": 0.9,
+        "h": 0.12
+      },
+      "position": [
+        0,
+        453,
+        200
+      ],
+      "size": [
+        1728,
+        129
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.55
+      }
+    },
+    {
+      "id": "region-1",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.02,
+        "y": 0.18,
+        "w": 0.28,
+        "h": 0.35
+      },
+      "position": [
+        -652,
+        156,
+        60
+      ],
+      "size": [
+        537,
+        378
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.6
+      }
+    },
+    {
+      "id": "region-2",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.32,
+        "y": 0.18,
+        "w": 0.36,
+        "h": 0.35
+      },
+      "position": [
+        0,
+        156,
+        90
+      ],
+      "size": [
+        691,
+        378
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.8
+      }
+    },
+    {
+      "id": "region-3",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.7,
+        "y": 0.18,
+        "w": 0.28,
+        "h": 0.35
+      },
+      "position": [
+        652,
+        156,
+        120
+      ],
+      "size": [
+        537,
+        378
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.95
+      }
+    },
+    {
+      "id": "region-4",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.02,
+        "y": 0.56,
+        "w": 0.45,
+        "h": 0.22
+      },
+      "position": [
+        -489,
+        -183,
+        150
+      ],
+      "size": [
+        864,
+        237
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.6
+      }
+    },
+    {
+      "id": "region-5",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.5,
+        "y": 0.56,
+        "w": 0.48,
+        "h": 0.22
+      },
+      "position": [
+        460,
+        -183,
+        180
+      ],
+      "size": [
+        921,
+        237
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.7
+      }
+    },
+    {
+      "id": "region-6",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.35,
+        "y": 0.8,
+        "w": 0.3,
+        "h": 0.15
+      },
+      "position": [
+        0,
+        -405,
+        210
+      ],
+      "size": [
+        576,
+        162
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.5
+      }
+    },
+    {
+      "id": "accent-1",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.15,
+        "y": 0.3,
+        "w": 0.08,
+        "h": 0.08
+      },
+      "position": [
+        -595,
+        172,
+        180
+      ],
+      "size": [
+        153,
+        86
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.65
+      }
+    },
+    {
+      "id": "accent-2",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.48,
+        "y": 0.25,
+        "w": 0.06,
+        "h": 0.1
+      },
+      "position": [
+        19,
+        216,
+        160
+      ],
+      "size": [
+        115,
+        108
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.8
+      }
+    },
+    {
+      "id": "accent-3",
+      "type": "cutoutPlane",
+      "fromImage": "page",
+      "cutout": {
+        "x": 0.8,
+        "y": 0.35,
+        "w": 0.07,
+        "h": 0.07
+      },
+      "position": [
+        643,
+        124,
+        170
+      ],
+      "size": [
+        134,
+        75
+      ],
+      "material": {
+        "transparent": true,
+        "alphaMode": "blend",
+        "opacity": 0.95,
+        "emissive": 0.08
+      },
+      "animation": {
+        "type": "float",
+        "amplitude": 3,
+        "speed": 0.7
+      }
+    },
+    {
+      "id": "connector-line-1",
+      "type": "primitive",
+      "shape": "cylinder",
+      "position": [
+        0,
+        0,
+        100
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "scale": [
+        2,
+        400,
+        2
+      ],
+      "material": {
+        "color": "#c9a227",
+        "metalness": 0.6,
+        "roughness": 0.3,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "node-sphere-1",
+      "type": "primitive",
+      "shape": "sphere",
+      "position": [
+        -300,
+        100,
+        120
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        25,
+        25,
+        25
+      ],
+      "material": {
+        "color": "#cd7f32",
+        "metalness": 0.8,
+        "roughness": 0.2
+      }
+    },
+    {
+      "id": "node-sphere-2",
+      "type": "primitive",
+      "shape": "sphere",
+      "position": [
+        300,
+        100,
+        120
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        25,
+        25,
+        25
+      ],
+      "material": {
+        "color": "#cd7f32",
+        "metalness": 0.8,
+        "roughness": 0.2
+      }
+    }
+  ],
+  "navigation": {
+    "snapPoints": [
+      {
+        "name": "Front View",
+        "cameraPos": [
+          0,
+          0,
+          1200
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Top Down",
+        "cameraPos": [
+          0,
+          800,
+          600
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Left Angle",
+        "cameraPos": [
+          -600,
+          200,
+          1000
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Right Angle",
+        "cameraPos": [
+          600,
+          200,
+          1000
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Close Up",
+        "cameraPos": [
+          0,
+          0,
+          600
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ]
+      }
+    ],
+    "tour": [
+      {
+        "snapPoint": "Front View",
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Left Angle",
+        "seconds": 2
+      },
+      {
+        "snapPoint": "Close Up",
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Right Angle",
+        "seconds": 2
+      },
+      {
+        "snapPoint": "Top Down",
+        "seconds": 2
+      }
+    ]
+  }
+}

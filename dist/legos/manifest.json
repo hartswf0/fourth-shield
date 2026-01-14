@@ -1,0 +1,195 @@
+{
+    "title": "Shield of Achilles - LEGOS Scene Graphs",
+    "version": "1.0.0",
+    "format": "LEGOS YAML + LDraw MPD",
+    "description": "Narrative-semantic scene graphs for each production pipeline page",
+    "scenes": [
+        {
+            "id": "01",
+            "file": "scene_01_pipeline.legos",
+            "title": "Production Pipeline & Triage Strategy",
+            "description": "Master overview: Brainstorming (Chaos) → Execution (Order)",
+            "entities": [
+                "Humanists",
+                "Techs",
+                "Designers",
+                "Schema",
+                "Substrate",
+                "Auden Button"
+            ],
+            "zones": [
+                "triage_station",
+                "parallel_work",
+                "convergence",
+                "delivery"
+            ]
+        },
+        {
+            "id": "02",
+            "file": "scene_02_ontology.legos",
+            "title": "Humanist Ontology Template - Iliad 18",
+            "description": "Code-compliant schema for structured graph population",
+            "entities": [
+                "Zone_City_at_Peace",
+                "Brides",
+                "Dancers",
+                "Flute Players",
+                "Judges"
+            ],
+            "zones": [
+                "inner_ring",
+                "agora",
+                "output"
+            ]
+        },
+        {
+            "id": "03",
+            "file": "scene_03_techs_loop.legos",
+            "title": "Work Stream 2: The Techs - Asset Loop",
+            "description": "From museum data to authentic Bronze LoRA",
+            "entities": [
+                "Museum Images",
+                "Neural Net",
+                "LoRA",
+                "Bronze Phone Test"
+            ],
+            "zones": [
+                "scrape_station",
+                "train_station",
+                "test_station"
+            ]
+        },
+        {
+            "id": "04",
+            "file": "scene_04_designers.legos",
+            "title": "Work Stream 3: The Designers - Stagecraft Volume",
+            "description": "The World Builders create spatial interface in Unreal",
+            "entities": [
+                "Shield Base",
+                "Rings 1-5",
+                "Starry Dome",
+                "Forge Light",
+                "Camera"
+            ],
+            "zones": [
+                "center",
+                "inner_band",
+                "outer_band",
+                "sky"
+            ]
+        },
+        {
+            "id": "05",
+            "file": "scene_05_auden_button.legos",
+            "title": "The Glitch (Critique): The Auden Button",
+            "description": "P3 toggle from Homeric Simulation to Modernist Critique",
+            "entities": [
+                "Auden Button",
+                "Homeric Mode",
+                "Modernist Mode"
+            ],
+            "zones": [
+                "default_state",
+                "alternate_state",
+                "ui_panel"
+            ]
+        },
+        {
+            "id": "06",
+            "file": "scene_06_humanists.legos",
+            "title": "Work Stream 1: The Humanists - Essays to Data",
+            "description": "Transforming scholarly prose into structured data",
+            "entities": [
+                "Scholar Prose",
+                "Schema Alpha",
+                "Classicist",
+                "CSV Request"
+            ],
+            "zones": [
+                "input_pile",
+                "output",
+                "communication"
+            ]
+        },
+        {
+            "id": "07",
+            "file": "scene_07_techs_pipeline.legos",
+            "title": "Work Stream 2: The Techs - Material Pipeline",
+            "description": "From generic prompts to inverse-rendering experiments",
+            "entities": [
+                "Base SD",
+                "LoRA Model",
+                "Bronze Phone Test",
+                "PBR Maps"
+            ],
+            "zones": [
+                "training_data",
+                "training_output",
+                "validation"
+            ]
+        },
+        {
+            "id": "08",
+            "file": "scene_08_mandate.legos",
+            "title": "Stagecraft Mandate",
+            "description": "Define spatial interface before populating with agents",
+            "entities": [
+                "Stagecraft Volume",
+                "Forge Light",
+                "Rings",
+                "Dome",
+                "Camera",
+                "Director"
+            ],
+            "zones": [
+                "unreal_scene",
+                "oversight"
+            ]
+        },
+        {
+            "id": "09",
+            "file": "scene_09_monday.legos",
+            "title": "Monday Morning Plan: Triage Execution",
+            "description": "Immediate actions, email briefs, team alignment",
+            "entities": [
+                "Classicist",
+                "Dev",
+                "Director",
+                "CSV",
+                "Textures",
+                "World Context"
+            ],
+            "zones": [
+                "humanist_station",
+                "tech_station",
+                "design_station"
+            ]
+        }
+    ],
+    "grammar": {
+        "entities": "e_<slug>",
+        "goals": "g_<slug>",
+        "obstacles": "o_<slug>",
+        "shifts": "s_<slug>",
+        "timeline": "t_<slug>",
+        "scenes": "sc_<slug>"
+    },
+    "mpd_conventions": {
+        "color_codes": {
+            "gold": 115,
+            "bronze": 366,
+            "teal": 39,
+            "white": 15,
+            "red": 4,
+            "green": 10,
+            "gray": 71
+        },
+        "y_layers": {
+            "floor": 0,
+            "layer1": -24,
+            "layer2": -48,
+            "layer3": -72,
+            "layer4": -96
+        }
+    }
+}

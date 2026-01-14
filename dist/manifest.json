@@ -1,0 +1,62 @@
+{
+  "title": "Shield of Achilles Production Pipeline",
+  "version": "1.0.0",
+  "generated": "2026-01-14",
+  "totalPages": 9,
+  "scenes": [
+    {
+      "id": "0001",
+      "title": "1",
+      "page": "pages/0001.png",
+      "scene": "scenes/0001/scene.json"
+    },
+    {
+      "id": "0002",
+      "title": "2",
+      "page": "pages/0002.png",
+      "scene": "scenes/0002/scene.json"
+    },
+    {
+      "id": "0003",
+      "title": "3",
+      "page": "pages/0003.png",
+      "scene": "scenes/0003/scene.json"
+    },
+    {
+      "id": "0004",
+      "title": "4",
+      "page": "pages/0004.png",
+      "scene": "scenes/0004/scene.json"
+    },
+    {
+      "id": "0005",
+      "title": "5",
+      "page": "pages/0005.png",
+      "scene": "scenes/0005/scene.json"
+    },
+    {
+      "id": "0006",
+      "title": "6",
+      "page": "pages/0006.png",
+      "scene": "scenes/0006/scene.json"
+    },
+    {
+      "id": "0007",
+      "title": "7",
+      "page": "pages/0007.png",
+      "scene": "scenes/0007/scene.json"
+    },
+    {
+      "id": "0008",
+      "title": "8",
+      "page": "pages/0008.png",
+      "scene": "scenes/0008/scene.json"
+    },
+    {
+      "id": "0009",
+      "title": "9",
+      "page": "pages/0009.png",
+      "scene": "scenes/0009/scene.json"
+    }
+  ]
+}

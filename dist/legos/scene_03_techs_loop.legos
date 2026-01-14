@@ -1,0 +1,227 @@
+title: "Work Stream 2: The Techs - Asset Loop"
+description: "The pipeline from museum data to authentic Bronze LoRA: Scrape, Train, Test cycle for creating the style_bronze_age checkpoint"
+location: "tech_lab"
+
+entities:
+  - id: "e_museum_images"
+    type: "data_source"
+    name: "500+ Museum-Grade Images"
+    traits: ["authentic", "reference", "archaeological"]
+    location: "scrape_station"
+  - id: "e_oxidized_bronze"
+    type: "data_source"
+    name: "Oxidized Bronze & Gold Inlay Samples"
+    traits: ["patina", "aged", "metallic"]
+    location: "scrape_station"
+  - id: "e_katsikis_armor"
+    type: "data_source"
+    name: "Dimitrios Katsikis's Armor Reconstructions"
+    traits: ["handcrafted", "authentic", "reference"]
+    location: "scrape_station"
+  - id: "e_texture_refs"
+    type: "data_source"
+    name: "Texture & Material Reference Library"
+    traits: ["detailed", "macro", "material"]
+    location: "scrape_station"
+  - id: "e_neural_network"
+    type: "system"
+    name: "Fine-Tune Neural Network"
+    traits: ["learning", "pattern-matching"]
+    location: "train_station"
+  - id: "e_bronze_lora"
+    type: "artifact"
+    name: "style_bronze_age LoRA"
+    traits: ["checkpoint", "trained", "specialized"]
+    location: "train_station"
+  - id: "e_bronze_phone_test"
+    type: "test"
+    name: "Bronze Phone Test"
+    traits: ["validation", "binary", "pass/fail"]
+    location: "test_station"
+  - id: "e_steampunk_fail"
+    type: "failure_mode"
+    name: "Generic Steampunk (Plastic Look)"
+    traits: ["modern", "synthetic", "wrong"]
+    location: "test_station"
+  - id: "e_hephaestus_pass"
+    type: "success_mode"
+    name: "Museum Artifact (Hammered by Hephaestus)"
+    traits: ["authentic", "bronze-age", "correct"]
+    location: "test_station"
+
+goals:
+  - id: "g_create_lora"
+    name: "Create authentic bronze-age LoRA checkpoint"
+    owner: "e_techs"
+  - id: "g_prevent_auden_glitch"
+    name: "Eliminate modern/industrial aesthetics from output"
+    owner: "e_techs"
+  - id: "g_ensure_consistency"
+    name: "Ensure material consistency across all assets"
+    owner: "e_techs"
+
+obstacles:
+  - id: "o_plastic_look"
+    name: "Default AI outputs look plastic/modern"
+    affects: "g_prevent_auden_glitch"
+  - id: "o_inconsistent_materials"
+    name: "Roughness and metallic maps vary wildly"
+    affects: "g_ensure_consistency"
+  - id: "o_hallucinated_textures"
+    name: "AI invents non-bronze materials"
+    affects: "g_create_lora"
+
+shifts:
+  - id: "s_scrape_data"
+    name: "Collect 500+ museum reference images"
+    causes: []
+    results_in: "g_create_lora"
+  - id: "s_train_model"
+    name: "Fine-tune on authentic bronzework only"
+    causes: ["o_plastic_look"]
+    results_in: "g_prevent_auden_glitch"
+  - id: "s_validate"
+    name: "Apply Bronze Phone test to all outputs"
+    causes: ["o_inconsistent_materials"]
+    results_in: "g_ensure_consistency"
+
+relations:
+  - "[feeds] e_museum_images -> e_neural_network"
+  - "[feeds] e_oxidized_bronze -> e_neural_network"
+  - "[feeds] e_katsikis_armor -> e_neural_network"
+  - "[feeds] e_texture_refs -> e_neural_network"
+  - "[produces] e_neural_network -> e_bronze_lora"
+  - "[validates] e_bronze_phone_test -> e_bronze_lora"
+  - "[rejects] e_bronze_phone_test -> e_steampunk_fail"
+  - "[accepts] e_bronze_phone_test -> e_hephaestus_pass"
+
+timeline:
+  - id: "t_asset_loop"
+    description: "Asset Loop Pipeline"
+    scenes:
+      - id: "sc_scrape"
+        description: "1. SCRAPE: Collect museum data"
+        entities: ["e_museum_images", "e_oxidized_bronze", "e_katsikis_armor", "e_texture_refs"]
+      - id: "sc_train"
+        description: "2. TRAIN: Fine-tune LoRA on authentic bronze"
+        entities: ["e_neural_network", "e_bronze_lora"]
+      - id: "sc_test"
+        description: "3. TEST: Validate with Bronze Phone prompt"
+        entities: ["e_bronze_phone_test"]
+      - id: "sc_fail"
+        description: "FAIL path: Steampunk/plastic output rejected"
+        entities: ["e_steampunk_fail"]
+      - id: "sc_pass"
+        description: "PASS path: Hephaestus-quality output accepted"
+        entities: ["e_hephaestus_pass"]
+
+---
+0 FILE shield_scene_03_techs_loop.mpd
+0 Name: Work Stream 2 - The Techs Asset Loop
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  WORK STREAM 2: THE TECHS (THE PIPELINE TEAM)                   ║
+0 ║  The Asset Loop: From Museum Data to Authentic Bronze LoRA     ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Tech Lab - Model Training Facility
+0 Entity: Museum Images, Oxidized Bronze, Katsikis Armor, Neural Net, LoRA
+0 Goal: Create authentic bronze-age LoRA, prevent Auden Glitch
+0 Obstacle: Plastic look, inconsistent materials, hallucination
+0 Shift: Scrape -> Train -> Test with Bronze Phone validation
+0 Solution: style_bronze_age checkpoint producing Hephaestus-quality output
+0 //
+0 // SUCCESS CRITERIA: Eliminate plastic steampunk, ensure museum authenticity
+0 //
+
+0 STEP 01: FLOOR - Tech Lab Platform
+1  7  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+1  7  160 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: SCRAPE STATION - Data Collection (Left)
+0 // Museum images stack
+1  28  -100 -24 -40  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  28  -100 -48 -40  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+1  28  -100 -72 -40  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // Oxidized bronze sample
+1  366  -100 -24 0  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  28  -100 -48 0  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // Katsikis armor piece
+1  297  -100 -24 40  1 0 0  0 1 0  0 0 1  parts/3846.dat
+0 // Texture reference tiles
+1  19  -100 -48 40  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 03: TRAIN STATION - Neural Network (Center)
+0 // Neural net representation - layered blocks
+1  39  0 -24 0  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  39  0 -48 0  1 0 0  0 1 0  0 0 1  parts/3005.dat
+1  39  0 -72 0  1 0 0  0 1 0  0 0 1  parts/3005.dat
+0 // Hidden layers
+1  7  20 -24 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  7  20 -48 -20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  7  20 -24 20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+1  7  20 -48 20  1 0 0  0 1 0  0 0 1  parts/3024.dat
+0 // LoRA output checkpoint
+1  115  40 -24 0  1 0 0  0 1 0  0 0 1  parts/3003.dat
+1  39  40 -48 0  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 STEP
+
+0 STEP 04: TEST STATION - Bronze Phone Validation (Right)
+0 // Phone representation
+1  7  100 -24 0  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+1  7  100 -48 0  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 // Prompt label
+1  14  100 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 05: FAIL PATH - Steampunk/Plastic (Upper Right)
+0 // Red X marker
+1  4  140 -24 -40  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 // Plastic-looking phone (wrong output)
+1  71  140 -48 -40  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+1  71  140 -72 -40  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 STEP
+
+0 STEP 06: PASS PATH - Hephaestus Artifact (Lower Right)
+0 // Green checkmark
+1  10  140 -24 40  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 // Museum-quality bronze phone (correct output)
+1  366  140 -48 40  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+1  28  140 -72 40  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 STEP
+
+0 STEP 07: PIPELINE ARROWS
+0 // Scrape -> Train arrow
+1  14  -50 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+0 // Train -> Test arrow
+1  14  50 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+0 // Test -> Fail arrow (red)
+1  4  120 -36 -20  1 0 0  0 1 0  0 0 1  parts/3705.dat
+0 // Test -> Pass arrow (green)
+1  10  120 -36 20  1 0 0  0 1 0  0 0 1  parts/3705.dat
+0 STEP
+
+0 STEP 08: LABELS
+0 // "1. SCRAPE" tile
+1  14  -100 -96 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // "2. TRAIN" tile
+1  14  0 -96 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 // "3. TEST" tile
+1  14  100 -96 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 09: SUCCESS CRITERIA BANNER
+0 // Bottom banner
+1  115  0 0 80  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  297  40 0 80  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 STEP
+
+0 NOFILE

@@ -1,0 +1,179 @@
+title: "The Glitch (Critique): The Auden Button"
+description: "P3 Low-priority artistic intervention that toggles the experience from Homeric Simulation to Modernist Critique via data drift"
+location: "critique_chamber"
+
+entities:
+  - id: "e_homeric_simulation"
+    type: "mode"
+    name: "Homeric Simulation (Order/Gold)"
+    traits: ["heroic", "bronze-age", "authentic"]
+    location: "default_state"
+  - id: "e_modernist_critique"
+    type: "mode"
+    name: "Modernist Critique (Chaos/Glitch)"
+    traits: ["ironic", "industrial", "dissonant"]
+    location: "alternate_state"
+  - id: "e_auden_button"
+    type: "ui_element"
+    name: "Auden Button Toggle"
+    traits: ["interactive", "toggle", "switch"]
+    location: "ui_panel"
+  - id: "e_heroic_sounds"
+    type: "audio"
+    name: "Heroic Sounds & Bronze Textures"
+    traits: ["lyre", "hymns", "warm"]
+    location: "audio_layer"
+  - id: "e_ironic_verse"
+    type: "audio"
+    name: "Auden's Ironic Verse & Industrial Tones"
+    traits: ["cold", "mechanical", "dissonant"]
+    location: "audio_layer"
+  - id: "e_bronze_visuals"
+    type: "visual"
+    name: "Bronze Textures & Warm Lighting"
+    traits: ["gold", "patina", "authentic"]
+    location: "visual_layer"
+  - id: "e_industrial_visuals"
+    type: "visual"
+    name: "Bleak Industrial Grays"
+    traits: ["concrete", "barbed-wire", "modern"]
+    location: "visual_layer"
+
+goals:
+  - id: "g_provide_critique"
+    name: "Provide artistic commentary on data drift"
+    owner: "e_auden_button"
+  - id: "g_contrast_eras"
+    name: "Contrast Homeric ideal with modern disillusionment"
+    owner: "e_auden_button"
+  - id: "g_user_agency"
+    name: "Give user control over experiential mode"
+    owner: "e_auden_button"
+
+obstacles:
+  - id: "o_accidental_glitch"
+    name: "Users might trigger glitch unintentionally"
+    affects: "g_user_agency"
+  - id: "o_jarring_transition"
+    name: "Mode switch might be too abrupt"
+    affects: "g_contrast_eras"
+
+shifts:
+  - id: "s_press_button"
+    name: "User presses Auden Button"
+    causes: []
+    results_in: "g_user_agency"
+  - id: "s_swap_mode"
+    name: "Conceptual swap from Homer to Modernism"
+    causes: ["o_jarring_transition"]
+    results_in: "g_contrast_eras"
+  - id: "s_experience_drift"
+    name: "User experiences data drift firsthand"
+    causes: []
+    results_in: "g_provide_critique"
+
+relations:
+  - "[toggles] e_auden_button -> e_homeric_simulation"
+  - "[toggles] e_auden_button -> e_modernist_critique"
+  - "[plays] e_homeric_simulation -> e_heroic_sounds"
+  - "[plays] e_modernist_critique -> e_ironic_verse"
+  - "[displays] e_homeric_simulation -> e_bronze_visuals"
+  - "[displays] e_modernist_critique -> e_industrial_visuals"
+
+timeline:
+  - id: "t_auden"
+    description: "Auden Button Experience"
+    scenes:
+      - id: "sc_default"
+        description: "Default: Homeric Simulation active"
+        entities: ["e_homeric_simulation", "e_heroic_sounds", "e_bronze_visuals"]
+      - id: "sc_toggle"
+        description: "User toggles Auden Button"
+        entities: ["e_auden_button"]
+      - id: "sc_glitch"
+        description: "Glitch: Modernist Critique active"
+        entities: ["e_modernist_critique", "e_ironic_verse", "e_industrial_visuals"]
+      - id: "sc_return"
+        description: "User can toggle back to Homeric"
+        entities: ["e_auden_button", "e_homeric_simulation"]
+
+---
+0 FILE shield_scene_05_auden_button.mpd
+0 Name: The Glitch (Critique) - The Auden Button
+0 Author: LEGOS-GPT + Grace Master Builder
+0 !LDRAW_ORG Model
+0 !LICENCE Redistributable under CCAL version 2.0
+0 BFC CERTIFY CCW
+0 //
+0 ╔══════════════════════════════════════════════════════════════════╗
+0 ║  THE GLITCH (CRITIQUE): THE AUDEN BUTTON (P3: LOW)              ║
+0 ║  Conceptual Swap: Homeric to Modernist Disillusionment          ║
+0 ╚══════════════════════════════════════════════════════════════════╝
+0 //
+0 LEGOS FRAMEWORK:
+0 Location: Critique Chamber - Mode Toggle Interface
+0 Entity: Auden Button, Homeric Mode, Modernist Mode, Audio+Visual layers
+0 Goal: Provide artistic commentary, contrast eras, give user agency
+0 Obstacle: Accidental activation, jarring transitions
+0 Shift: Button press swaps entire audiovisual experience
+0 Solution: Toggle between gold/bronze and gray/industrial aesthetics
+0 //
+0 // PRIORITY: P3 LOW - Artistic twist, not core functionality
+0 //
+
+0 STEP 01: FLOOR - Split Chamber (Gold | Gray)
+0 // Left side: Homeric gold
+1  115  -80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 // Right side: Modernist gray
+1  71  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat
+0 STEP
+
+0 STEP 02: HOMERIC SIMULATION PANEL (Left)
+0 // Gold medallion representing Order/Gold mode
+1  115  -80 -24 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+1  297  -80 -48 0  1 0 0  0 1 0  0 0 1  parts/6177.dat
+0 // Lyre icon for heroic sounds
+1  297  -100 -72 -20  1 0 0  0 1 0  0 0 1  parts/93552.dat
+0 // Bronze texture indicator
+1  366  -60 -72 -20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 03: MODERNIST CRITIQUE PANEL (Right)
+0 // Gray/dark factory representing Chaos/Glitch mode
+1  71  80 -24 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  71  80 -48 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+1  0  80 -72 0  1 0 0  0 1 0  0 0 1  parts/3010.dat
+0 // Smokestacks for industrial imagery
+1  71  60 -24 -20  1 0 0  0 1 0  0 0 1  parts/3062b.dat
+1  71  100 -24 -20  1 0 0  0 1 0  0 0 1  parts/3062b.dat
+0 // Sound wave distortion
+1  0  80 -96 0  1 0 0  0 1 0  0 0 1  parts/50950.dat
+0 STEP
+
+0 STEP 04: AUDEN BUTTON (Center)
+0 // Large toggle button between two worlds
+1  7  0 -24 0  1 0 0  0 1 0  0 0 1  parts/6141.dat
+1  15  0 -48 0  1 0 0  0 1 0  0 0 1  parts/4073.dat
+0 // Toggle switch mechanism
+1  14  0 -72 0  1 0 0  0 1 0  0 0 1  parts/4599.dat
+0 STEP
+
+0 STEP 05: UI TOGGLE LABEL
+0 // "Artistic Twist / Critique on Demand" marker
+1  14  0 -96 20  1 0 0  0 1 0  0 0 1  parts/3070b.dat
+0 STEP
+
+0 STEP 06: TRANSITION ARROW (Bidirectional)
+0 // Arrow from Homeric to Modernist
+1  14  -40 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat
+0 // Arrow from Modernist to Homeric
+1  14  40 -36 0  0 0 -1  0 1 0  1 0 0  parts/3705.dat
+0 STEP
+
+0 STEP 07: CONCEPT SUMMARY BANNER
+0 // Summary at bottom
+1  115  -40 0 60  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+1  71  40 0 60  1 0 0  0 1 0  0 0 1  parts/3069b.dat
+0 STEP
+
+0 NOFILE
