@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Your Place in the Forge | The Computational Ekphrasis Lab</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --bg-gradient-start: #0d1117;
+            --bg-gradient-end: #0a1628;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --gold-dim: #8b7020;
+            --bronze: #cd7f32;
+            --copper: #b87333;
+            --teal: #2dd4bf;
+            --teal-dim: #0d9488;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Circuit Background */
+        .circuit-bg {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            z-index: -2;
+        }
+
+        .circuit-overlay {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(45, 212, 191, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Circuit Lines Animation */
+        .circuit-lines {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            opacity: 0.15;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circuit-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: pulse-line 4s ease-in-out infinite;
+        }
+
+        .circuit-line:nth-child(1) {
+            bottom: 20px;
+            left: 0;
+            width: 30%;
+            animation-delay: 0s;
+        }
+
+        .circuit-line:nth-child(2) {
+            bottom: 50px;
+            left: 20%;
+            width: 40%;
+            animation-delay: 0.5s;
+        }
+
+        .circuit-line:nth-child(3) {
+            bottom: 80px;
+            left: 40%;
+            width: 25%;
+            animation-delay: 1s;
+        }
+
+        .circuit-line:nth-child(4) {
+            bottom: 110px;
+            right: 0;
+            width: 35%;
+            animation-delay: 1.5s;
+        }
+
+        .circuit-line:nth-child(5) {
+            bottom: 140px;
+            right: 20%;
+            width: 20%;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse-line {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-title .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        .description {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 1.5rem 2rem;
+            background: rgba(201, 162, 39, 0.05);
+            border: 1px solid var(--border-gold);
+            border-radius: 4px;
+        }
+
+        /* Tribes Section */
+        .tribes-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tribes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Tribe Card */
+        .tribe-card {
+            position: relative;
+            background: linear-gradient(180deg,
+                    rgba(20, 25, 35, 0.9) 0%,
+                    rgba(15, 20, 30, 0.95) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .tribe-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(201, 162, 39, 0.1) 0%,
+                    transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .tribe-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(201, 162, 39, 0.1);
+        }
+
+        .tribe-card:hover::before {
+            opacity: 1;
+        }
+
+        .tribe-card.selected {
+            border-color: var(--gold-light);
+            box-shadow:
+                0 0 30px rgba(201, 162, 39, 0.3),
+                inset 0 0 30px rgba(201, 162, 39, 0.05);
+        }
+
+        /* Badge */
+        .badge {
+            width: 120px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .badge-shape {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    var(--bronze) 0%,
+                    var(--copper) 50%,
+                    var(--gold-dim) 100%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .badge-inner {
+            width: 85%;
+            height: 85%;
+            background: linear-gradient(180deg,
+                    rgba(15, 20, 30, 0.95) 0%,
+                    rgba(10, 15, 25, 0.98) 100%);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-icon {
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .badge-icon.humanist {
+            color: var(--gold);
+        }
+
+        .badge-icon.technical {
+            color: var(--teal);
+        }
+
+        .badge-icon.artisan {
+            color: var(--bronze);
+        }
+
+        /* Tribe Info */
+        .tribe-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.05em;
+        }
+
+        .tribe-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .tribe-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            min-height: 60px;
+        }
+
+        /* CTA Button */
+        .tribe-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tribe-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+            z-index: -1;
+        }
+
+        .tribe-cta:hover {
+            color: var(--bg-dark);
+        }
+
+        .tribe-cta:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tribe-card.selected .tribe-cta {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .footer-text strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 13, 18, 0.95);
+            border-top: 1px solid var(--border-gold);
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .status-left {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+        }
+
+        .status-right {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .status-right a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        /* Selection Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: linear-gradient(180deg,
+                    rgba(20, 25, 35, 0.98) 0%,
+                    rgba(10, 15, 25, 0.99) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 500px;
+            text-align: center;
+            animation: modal-in 0.4s ease-out;
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .modal-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 3rem 1rem 1.5rem;
+            }
+
+            .tribes-grid {
+                gap: 1.5rem;
+            }
+
+            .tribe-card {
+                padding: 1.5rem;
+            }
+
+            .badge {
+                width: 100px;
+                height: 120px;
+            }
+
+            .status-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circuit-bg"></div>
+    <div class="circuit-overlay"></div>
+    <div class="circuit-lines">
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+    </div>
+
+    <header class="header">
+        <h1 class="main-title">Secure <span class="highlight">Your Place</span> in the Forge.</h1>
+        <p class="subtitle">The Computational Ekphrasis Lab</p>
+        <p class="description">
+            Reply with your tribe badge—<strong>Humanist</strong>, <strong>Technical</strong>,
+            <strong>Artisan</strong>—to receive the City-at-Peace JSON draft and secure your seat at the two-day
+            ontology workshop that kick-starts <strong>Shield v4.0</strong>.
+        </p>
+    </header>
+
+    <section class="tribes-section">
+        <div class="tribes-grid">
+            <!-- Humanist -->
+            <div class="tribe-card" data-tribe="humanist">
+                <div class="badge">
+                    <div class="badge-shape">
+                        <div class="badge-inner">
+                            <span class="badge-icon humanist">⚖</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="tribe-name">HUMANIST:</h2>
+                <p class="tribe-role">Ontological Engineers</p>
+                <p class="tribe-description">
+                    Define the Ancient World's Logic & World Text. Shape the philosophical foundations that give meaning
+                    to simulation.
+                </p>
+                <button class="tribe-cta">Reply with Humanist Badge</button>
+            </div>
+
+            <!-- Technical -->
+            <div class="tribe-card" data-tribe="technical">
+                <div class="badge">
+                    <div class="badge-shape">
+                        <div class="badge-inner">
+                            <span class="badge-icon technical">⬡</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="tribe-name">TECHNICAL:</h2>
+                <p class="tribe-role">Simulation Builders</p>
+                <p class="tribe-description">
+                    Design the Generative Pipeline & Solve the Hallucination Problem. Build the systems that bring
+                    worlds to life.
+                </p>
+                <button class="tribe-cta">Reply with Technical Badge</button>
+            </div>
+
+            <!-- Artisan -->
+            <div class="tribe-card" data-tribe="artisan">
+                <div class="badge">
+                    <div class="badge-shape">
+                        <div class="badge-inner">
+                            <span class="badge-icon artisan">◆</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="tribe-name">ARTISAN:</h2>
+                <p class="tribe-role">Material Designers</p>
+                <p class="tribe-description">
+                    Provide the Ground Truth & Bronze Substrate. Craft the tangible artifacts that anchor digital
+                    dreams.
+                </p>
+                <button class="tribe-cta">Reply with Artisan Badge</button>
+            </div>
+        </div>
+
+        <div class="footer-cta">
+            <p class="footer-text">
+                Enter the Forge and shape the next <strong>3,000 years</strong> of simulation history. The Computational
+                Ekphrasis Lab.
+            </p>
+        </div>
+    </section>
+
+    <div class="status-bar">
+        <span class="status-left">The Computational Ekphrasis Lab</span>
+        <span class="status-right"><a href="#">Proposal for Participation</a></span>
+    </div>
+
+    <!-- Selection Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-icon" id="modal-icon">⚔</div>
+            <h3 class="modal-title" id="modal-title">Welcome, Forge-Bearer</h3>
+            <p class="modal-text" id="modal-text">
+                You have chosen your path. The City-at-Peace JSON draft will be delivered to you, and your seat at the
+                ontology workshop is secured.
+            </p>
+            <div class="modal-actions">
+                <button class="modal-btn" onclick="closeModal()">Go Back</button>
+                <button class="modal-btn primary" onclick="confirmSelection()">Confirm Selection</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tribes = {
+            humanist: {
+                icon: '⚖',
+                title: 'Welcome, Ontological Engineer',
+                text: 'You have chosen the path of the Humanist. You will define the Ancient World\'s Logic & World Text, shaping the philosophical foundations of Shield v4.0.',
+                color: '#c9a227'
+            },
+            technical: {
+                icon: '⬡',
+                title: 'Welcome, Simulation Builder',
+                text: 'You have chosen the path of the Technical. You will design the Generative Pipeline and work to solve the Hallucination Problem.',
+                color: '#2dd4bf'
+            },
+            artisan: {
+                icon: '◆',
+                title: 'Welcome, Material Designer',
+                text: 'You have chosen the path of the Artisan. You will provide the Ground Truth & Bronze Substrate, crafting tangible artifacts.',
+                color: '#cd7f32'
+            }
+        };
+
+        let selectedTribe = null;
+
+        document.querySelectorAll('.tribe-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const tribe = card.dataset.tribe;
+                selectTribe(tribe, card);
+            });
+        });
+
+        function selectTribe(tribe, card) {
+            // Update selection state
+            document.querySelectorAll('.tribe-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedTribe = tribe;
+
+            // Update and show modal
+            const data = tribes[tribe];
+            document.getElementById('modal-icon').textContent = data.icon;
+            document.getElementById('modal-icon').style.color = data.color;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-text').textContent = data.text;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function confirmSelection() {
+            closeModal();
+            // Show confirmation animation
+            const card = document.querySelector(`[data-tribe="${selectedTribe}"]`);
+            card.style.animation = 'none';
+            card.offsetHeight; // Trigger reflow
+            card.style.animation = 'pulse-confirm 0.6s ease-out';
+
+            // Could redirect or show success state here
+            alert(`You have joined the ${selectedTribe.charAt(0).toUpperCase() + selectedTribe.slice(1)} tribe! Check your inbox for the City-at-Peace JSON draft.`);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

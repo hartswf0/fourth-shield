@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causal Prompting Benchmark | Shield Pipeline</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --gold-dim: #8b7020;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --red: #ef4444;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Pipeline Section */
+        .pipeline {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1.2fr 1fr;
+            gap: 1rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+
+        .pipeline-stage {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .stage-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stage-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.05em;
+        }
+
+        .stage-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .stage-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .stage-item {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            padding: 0.4rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        /* AI Core */
+        .ai-core {
+            border-color: var(--teal);
+            background: rgba(45, 212, 191, 0.05);
+        }
+
+        .ai-core .stage-title {
+            color: var(--teal);
+        }
+
+        .ai-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 0.75rem;
+            background: linear-gradient(135deg, var(--teal), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Blocked Stage */
+        .blocked-stage {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .blocked-stage .stage-title {
+            color: var(--red);
+        }
+
+        .blocked-badge {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--red);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .filtered-badge {
+            background: var(--teal);
+        }
+
+        /* Output Stage */
+        .output-stage {
+            border-color: var(--gold);
+            background: rgba(201, 162, 39, 0.08);
+        }
+
+        .output-icon {
+            font-size: 3rem;
+            color: var(--gold);
+        }
+
+        /* Arrow Connectors */
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .legend-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-icon.gold {
+            background: var(--gold);
+        }
+
+        .legend-icon.red {
+            background: var(--red);
+        }
+
+        .legend-icon.teal {
+            background: var(--teal);
+        }
+
+        .legend-icon.bronze {
+            background: var(--bronze);
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .pipeline {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">The Shield as a <span class="accent">Causal Prompting Benchmark</span></h1>
+            <p class="subtitle">
+                Building pipelines that respect Homeric constraints, avoiding Auden's modernity to honor ancient data.
+            </p>
+        </header>
+
+        <div class="pipeline">
+            <!-- Homeric Constraints -->
+            <div class="pipeline-stage">
+                <div class="stage-icon">🏛</div>
+                <h3 class="stage-title">HOMERIC CONSTRAINTS</h3>
+                <p class="stage-subtitle">(Ancient Data)</p>
+                <div class="stage-items">
+                    <span class="stage-item">Ontological Rules</span>
+                    <span class="stage-item">City at Peace Logic</span>
+                    <span class="stage-item">Bronze Age Physics</span>
+                    <span class="stage-item">Ritual & Narrative Flow</span>
+                </div>
+            </div>
+
+            <!-- AI Core -->
+            <div class="pipeline-stage ai-core">
+                <span class="blocked-badge filtered-badge">FILTERED</span>
+                <div class="ai-icon">★</div>
+                <h3 class="stage-title">CAUSAL PROMPTING PIPELINE</h3>
+                <p class="stage-subtitle">& NEUROSYMBOLIC AI CORE</p>
+            </div>
+
+            <!-- Auden's Modernity (Blocked) -->
+            <div class="pipeline-stage blocked-stage">
+                <span class="blocked-badge">BLOCKED</span>
+                <div class="stage-icon">📺</div>
+                <h3 class="stage-title">AUDEN'S MODERNITY</h3>
+                <p class="stage-subtitle">(Industrial Glitch)</p>
+                <div class="stage-items">
+                    <span class="stage-item">Industrial Reality</span>
+                    <span class="stage-item">Barbed Wire Glitch</span>
+                    <span class="stage-item">Modernist Noise</span>
+                    <span class="stage-item">Anachronistic Artifacts</span>
+                </div>
+            </div>
+
+            <!-- Simulation Output -->
+            <div class="pipeline-stage output-stage">
+                <div class="output-icon">🛡</div>
+                <h3 class="stage-title">SIMULATION OUTPUT</h3>
+                <p class="stage-subtitle">(Homeric Ideal)</p>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-icon gold"></div>
+                <span>Causal Prompting: Guiding models via defined constraints</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon red"></div>
+                <span>Avoiding Auden's Glitch: Physically blocking modern industrial concepts</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon teal"></div>
+                <span>Honoring Ancient Data: Ensuring model weights respect historical ground truth</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon bronze"></div>
+                <span>Benchmark for World Models: Testing the limits of AI reconstruction</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-3.html" class="nav-btn">←</a>
+        <a href="page-5.html" class="nav-btn">→</a>
+    </nav>
+
+    <footer class="footer">
+        The Computational Ekphrasis Lab · Proposal for Participation
+    </footer>
+</body>
+
+</html>

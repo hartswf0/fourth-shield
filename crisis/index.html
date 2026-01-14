@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Media Machine</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --gold: #f59e0b;
+            --text: #e2e8f0;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, transparent 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .view-modes {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-glass);
+            padding: 0.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .view-btn:hover {
+            color: var(--text);
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 1rem;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 290px;
+            z-index: 101;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 30px;
+            height: 30px;
+            border-radius: 0 0.5rem 0.5rem 0;
+            cursor: pointer;
+            transition: left 0.3s;
+        }
+
+        .sidebar.collapsed + .sidebar-toggle {
+            left: 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .family-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .family-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: var(--bg-glass);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .family-header:hover {
+            border-color: var(--accent);
+        }
+
+        .family-header.active {
+            border-color: var(--gold);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .family-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .family-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-dark);
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .album-list {
+            padding-left: 1rem;
+        }
+
+        .album-item {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .album-item:hover {
+            color: var(--text);
+            background: var(--bg-glass);
+        }
+
+        .album-item.active {
+            color: var(--accent);
+        }
+
+        .album-slides {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            padding: 90px 2rem 2rem;
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar.collapsed ~ .main {
+            margin-left: 0;
+        }
+
+        /* Grid View */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .slide-card {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            background: var(--bg-card);
+        }
+
+        .slide-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .slide-card.highlighted {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .slide-card.in-playlist {
+            border-color: var(--success);
+        }
+
+        .slide-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0.75rem;
+        }
+
+        .slide-card:hover .slide-overlay {
+            opacity: 1;
+        }
+
+        .slide-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .slide-actions {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .action-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-dark);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .slide-card:hover .action-btn {
+            opacity: 1;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+        }
+
+        .action-btn.highlight-btn.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .action-btn.playlist-btn.active {
+            background: var(--success);
+        }
+
+        /* Slideshow View */
+        .slideshow-container {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            flex-direction: column;
+        }
+
+        .slideshow-container.active {
+            display: flex;
+        }
+
+        .slideshow-header {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, transparent 100%);
+        }
+
+        .slideshow-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .slideshow-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .slideshow-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg-glass);
+            color: var(--text);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .slideshow-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .slideshow-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .slideshow-image {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .slideshow-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-glass);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+
+        .slideshow-nav:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .slideshow-nav.prev { left: 2rem; }
+        .slideshow-nav.next { right: 2rem; }
+
+        .slideshow-footer {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .slide-counter {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            flex: 1;
+            max-width: 400px;
+            height: 4px;
+            background: var(--bg-glass);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        /* Compare View */
+        .compare-container {
+            display: grid;
+            gap: 1rem;
+            min-height: calc(100vh - 120px);
+        }
+
+        .compare-container.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .compare-container.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .compare-container.cols-4 { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
+
+        .compare-slot {
+            background: var(--bg-card);
+            border: 2px dashed var(--border);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+        }
+
+        .compare-slot.filled {
+            border-style: solid;
+        }
+
+        .compare-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .compare-slot-label {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            right: 0.5rem;
+            background: var(--bg-dark);
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        .drop-zone-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Family View */
+        .family-view {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .family-block {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .family-block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .family-block-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .family-block-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .family-albums {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .album-row {
+            background: var(--bg-glass);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        .album-row-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .album-slides-row {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .album-slides-row::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .album-slides-row::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+            border-radius: 3px;
+        }
+
+        .album-slides-row::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .album-thumb {
+            flex-shrink: 0;
+            width: 160px;
+            aspect-ratio: 16/9;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .album-thumb:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .album-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Playlist Panel */
+        .playlist-panel {
+            position: fixed;
+            top: 70px;
+            right: 0;
+            width: 300px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
+            transform: translateX(100%);
+            transition: transform 0.3s;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .playlist-panel.open {
+            transform: translateX(0);
+        }
+
+        .playlist-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .playlist-title {
+            font-weight: 600;
+        }
+
+        .playlist-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .playlist-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-glass);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: grab;
+        }
+
+        .playlist-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .playlist-thumb {
+            width: 60px;
+            height: 34px;
+            border-radius: 0.25rem;
+            object-fit: cover;
+        }
+
+        .playlist-item-info {
+            flex: 1;
+            font-size: 0.75rem;
+        }
+
+        .playlist-item-remove {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .playlist-item-remove:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .playlist-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .play-playlist-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .play-playlist-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .playlist-toggle {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            z-index: 101;
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .playlist-panel.open ~ .playlist-toggle {
+            right: 320px;
+        }
+
+        /* Empty states */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .filter-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text);
+            font-size: 0.875rem;
+            width: 200px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main {
+                margin-left: 0;
+            }
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .header {
+                padding: 1rem;
+            }
+            .view-modes {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Total Media Machine</div>
+        <div class="view-modes">
+            <button class="view-btn active" data-view="grid">Grid</button>
+            <button class="view-btn" data-view="slideshow">Slideshow</button>
+            <button class="view-btn" data-view="compare">Compare</button>
+            <button class="view-btn" data-view="family">Families</button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="total-slides">0</div>
+                <div class="stat-label">Slides</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-albums">0</div>
+                <div class="stat-label">Albums</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-families">0</div>
+                <div class="stat-label">Families</div>
+            </div>
+        </div>
+        <div id="family-tree"></div>
+    </aside>
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+
+    <!-- Main Content -->
+    <main class="main" id="main">
+        <!-- Filter bar -->
+        <div class="filter-bar" id="filter-bar">
+            <input type="text" class="search-box" placeholder="Search slides..." id="search-box">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="highlighted">★ Highlights</button>
+            <button class="filter-chip" data-filter="playlist">♫ In Playlist</button>
+        </div>
+
+        <!-- Grid View (default) -->
+        <div class="grid-container" id="grid-view"></div>
+
+        <!-- Compare View -->
+        <div class="compare-container cols-2" id="compare-view" style="display: none;">
+            <div class="compare-slot" data-slot="0"><span class="drop-zone-text">Drop or click to add slide</span></div>
+            <div class="compare-slot" data-slot="1"><span class="drop-zone-text">Drop or click to add slide</span></div>
+            <div class="compare-slot" data-slot="2" style="display: none;"><span class="drop-zone-text">Drop or click to add slide</span></div>
+            <div class="compare-slot" data-slot="3" style="display: none;"><span class="drop-zone-text">Drop or click to add slide</span></div>
+        </div>
+
+        <!-- Family View -->
+        <div class="family-view" id="family-view" style="display: none;"></div>
+    </main>
+
+    <!-- Slideshow Modal -->
+    <div class="slideshow-container" id="slideshow">
+        <div class="slideshow-header">
+            <div class="slideshow-title" id="slideshow-title">Presentation</div>
+            <div class="slideshow-controls">
+                <button class="slideshow-btn" id="auto-play-btn">▶ Auto</button>
+                <button class="slideshow-btn" id="highlight-current">★ Highlight</button>
+                <button class="slideshow-btn" id="add-to-playlist">+ Playlist</button>
+                <button class="slideshow-btn" id="close-slideshow">✕ Close</button>
+            </div>
+        </div>
+        <div class="slideshow-main">
+            <button class="slideshow-nav prev" id="prev-slide">‹</button>
+            <img class="slideshow-image" id="slideshow-image" src="" alt="Slide">
+            <button class="slideshow-nav next" id="next-slide">›</button>
+        </div>
+        <div class="slideshow-footer">
+            <span class="slide-counter" id="slide-counter">1 / 1</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist Panel -->
+    <div class="playlist-panel" id="playlist-panel">
+        <div class="playlist-header">
+            <span class="playlist-title">Playlist (<span id="playlist-count">0</span>)</span>
+            <div class="playlist-actions">
+                <button class="slideshow-btn" id="clear-playlist">Clear</button>
+            </div>
+        </div>
+        <div class="playlist-content" id="playlist-content">
+            <div class="empty-state">
+                <div class="empty-icon">♫</div>
+                <div>Add slides to your playlist</div>
+            </div>
+        </div>
+        <div class="playlist-footer">
+            <button class="play-playlist-btn" id="play-playlist">▶ Play Playlist</button>
+        </div>
+    </div>
+    <button class="playlist-toggle" id="playlist-toggle">♫</button>
+
+    <script>
+        // ===== DATA =====
+        const PRESENTATIONS = [
+            {
+                family: "Algorithmic Colonization",
+                albums: [
+                    { name: "Algorithmic Colonization of Self", path: "../Algorithmic Colonization of Self", slides: 9 },
+                    { name: "Algorithmic Colonization of the Narrative Self", path: "../Algorithmic Colonization of the Narrative Self", slides: 9 },
+                    { name: "The Algorithmic Colonization of the Narrative Self", path: "../The Algorithmic Colonization of the Narrative Self", slides: 27 }
+                ]
+            },
+            {
+                family: "Brick-Built Media",
+                albums: [
+                    { name: "Brick-Built Media Myths", path: "../Brick-Built Media Myths", slides: 9 },
+                    { name: "Brick-Built Media Odyssey (1)", path: "../Brick-Built Media Odyssey (1)", slides: 9 },
+                    { name: "Brick-Built Media Odyssey (2)", path: "../Brick-Built Media Odyssey (2)", slides: 9 }
+                ]
+            },
+            {
+                family: "Fourth Shield",
+                albums: [
+                    { name: "The Fourth Shield", path: "../The Fourth Shield", slides: 9 },
+                    { name: "Forge the Fourth Shield", path: "../Forge the Fourth Shield", slides: 9 }
+                ]
+            },
+            {
+                family: "Crisis Machines",
+                albums: [
+                    { name: "Crisis Machines", path: "../Crisis Machines", slides: 9 },
+                    { name: "Crisis Machines Extended", path: "../_mnt_okcomputer_output_crisis_machines.pptx.html (4) 2", slides: 12 }
+                ]
+            },
+            {
+                family: "Shield of Achilles",
+                albums: [
+                    { name: "Shield of Achilles Production Pipeline", path: "../Shield of Achilles Production Pipeline", slides: 9 }
+                ]
+            },
+            {
+                family: "Architecture of Agency",
+                albums: [
+                    { name: "The Architecture of Agency", path: "../The Architecture of Agency", slides: 9 }
+                ]
+            }
+        ];
+
+        // ===== STATE =====
+        let allSlides = [];
+        let filteredSlides = [];
+        let playlist = [];
+        let highlights = new Set();
+        let currentView = 'grid';
+        let slideshowIndex = 0;
+        let slideshowSlides = [];
+        let autoPlayInterval = null;
+        let compareSlots = [null, null, null, null];
+
+        // ===== INIT =====
+        function init() {
+            buildSlideData();
+            renderFamilyTree();
+            renderGridView();
+            updateStats();
+            bindEvents();
+        }
+
+        function buildSlideData() {
+            allSlides = [];
+            PRESENTATIONS.forEach(family => {
+                family.albums.forEach(album => {
+                    for (let i = 1; i <= album.slides; i++) {
+                        allSlides.push({
+                            id: `${album.path}/${i}`,
+                            family: family.family,
+                            album: album.name,
+                            albumPath: album.path,
+                            slideNum: i,
+                            src: `${album.path}/${i}.png`
+                        });
+                    }
+                });
+            });
+            filteredSlides = [...allSlides];
+        }
+
+        function updateStats() {
+            document.getElementById('total-slides').textContent = allSlides.length;
+            document.getElementById('total-albums').textContent = PRESENTATIONS.reduce((a, f) => a + f.albums.length, 0);
+            document.getElementById('total-families').textContent = PRESENTATIONS.length;
+        }
+
+        // ===== FAMILY TREE =====
+        function renderFamilyTree() {
+            const container = document.getElementById('family-tree');
+            container.innerHTML = PRESENTATIONS.map(family => {
+                const totalSlides = family.albums.reduce((a, alb) => a + alb.slides, 0);
+                return `
+                    <div class="family-section">
+                        <div class="family-header" data-family="${family.family}">
+                            <span class="family-name">${family.family}</span>
+                            <span class="family-count">${totalSlides}</span>
+                        </div>
+                        <div class="album-list">
+                            ${family.albums.map(album => `
+                                <div class="album-item" data-album="${album.path}">
+                                    <span>${album.name.replace(family.family, '').trim() || album.name}</span>
+                                    <span class="album-slides">${album.slides}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== GRID VIEW =====
+        function renderGridView() {
+            const container = document.getElementById('grid-view');
+            container.innerHTML = filteredSlides.map(slide => `
+                <div class="slide-card ${highlights.has(slide.id) ? 'highlighted' : ''} ${playlist.some(p => p.id === slide.id) ? 'in-playlist' : ''}" 
+                     data-id="${slide.id}">
+                    <img src="${slide.src}" alt="${slide.album} - Slide ${slide.slideNum}" loading="lazy">
+                    <div class="slide-overlay">
+                        <div class="slide-info">${slide.album} — ${slide.slideNum}</div>
+                    </div>
+                    <div class="slide-actions">
+                        <button class="action-btn highlight-btn ${highlights.has(slide.id) ? 'active' : ''}" title="Highlight">★</button>
+                        <button class="action-btn playlist-btn ${playlist.some(p => p.id === slide.id) ? 'active' : ''}" title="Add to playlist">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== FAMILY VIEW =====
+        function renderFamilyView() {
+            const container = document.getElementById('family-view');
+            container.innerHTML = PRESENTATIONS.map(family => {
+                const totalSlides = family.albums.reduce((a, alb) => a + alb.slides, 0);
+                return `
+                    <div class="family-block">
+                        <div class="family-block-header">
+                            <div class="family-block-title">${family.family}</div>
+                            <div class="family-block-stats">
+                                <span>${family.albums.length} albums</span>
+                                <span>•</span>
+                                <span>${totalSlides} slides</span>
+                            </div>
+                        </div>
+                        <div class="family-albums">
+                            ${family.albums.map(album => `
+                                <div class="album-row">
+                                    <div class="album-row-title">${album.name}</div>
+                                    <div class="album-slides-row">
+                                        ${Array.from({length: album.slides}, (_, i) => `
+                                            <div class="album-thumb" data-id="${album.path}/${i+1}">
+                                                <img src="${album.path}/${i+1}.png" alt="Slide ${i+1}" loading="lazy">
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== SLIDESHOW =====
+        function openSlideshow(slides, startIndex = 0) {
+            slideshowSlides = slides;
+            slideshowIndex = startIndex;
+            updateSlideshowDisplay();
+            document.getElementById('slideshow').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSlideshow() {
+            document.getElementById('slideshow').classList.remove('active');
+            document.body.style.overflow = '';
+            stopAutoPlay();
+        }
+
+        function updateSlideshowDisplay() {
+            const slide = slideshowSlides[slideshowIndex];
+            document.getElementById('slideshow-image').src = slide.src;
+            document.getElementById('slideshow-title').textContent = `${slide.album} — Slide ${slide.slideNum}`;
+            document.getElementById('slide-counter').textContent = `${slideshowIndex + 1} / ${slideshowSlides.length}`;
+            document.getElementById('progress-fill').style.width = `${((slideshowIndex + 1) / slideshowSlides.length) * 100}%`;
+            
+            // Update highlight button state
+            document.getElementById('highlight-current').classList.toggle('active', highlights.has(slide.id));
+        }
+
+        function nextSlide() {
+            slideshowIndex = (slideshowIndex + 1) % slideshowSlides.length;
+            updateSlideshowDisplay();
+        }
+
+        function prevSlide() {
+            slideshowIndex = (slideshowIndex - 1 + slideshowSlides.length) % slideshowSlides.length;
+            updateSlideshowDisplay();
+        }
+
+        function toggleAutoPlay() {
+            if (autoPlayInterval) {
+                stopAutoPlay();
+            } else {
+                autoPlayInterval = setInterval(nextSlide, 3000);
+                document.getElementById('auto-play-btn').textContent = '⏸ Pause';
+            }
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+                document.getElementById('auto-play-btn').textContent = '▶ Auto';
+            }
+        }
+
+        // ===== PLAYLIST =====
+        function addToPlaylist(slide) {
+            if (!playlist.some(p => p.id === slide.id)) {
+                playlist.push(slide);
+                updatePlaylistUI();
+                renderGridView();
+            }
+        }
+
+        function removeFromPlaylist(slideId) {
+            playlist = playlist.filter(p => p.id !== slideId);
+            updatePlaylistUI();
+            renderGridView();
+        }
+
+        function clearPlaylist() {
+            playlist = [];
+            updatePlaylistUI();
+            renderGridView();
+        }
+
+        function updatePlaylistUI() {
+            document.getElementById('playlist-count').textContent = playlist.length;
+            const container = document.getElementById('playlist-content');
+            
+            if (playlist.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">♫</div>
+                        <div>Add slides to your playlist</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = playlist.map((slide, idx) => `
+                    <div class="playlist-item" data-id="${slide.id}">
+                        <img class="playlist-thumb" src="${slide.src}" alt="">
+                        <div class="playlist-item-info">
+                            <div>${slide.album}</div>
+                            <div style="opacity: 0.6">Slide ${slide.slideNum}</div>
+                        </div>
+                        <button class="playlist-item-remove" data-id="${slide.id}">✕</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function playPlaylist() {
+            if (playlist.length > 0) {
+                openSlideshow(playlist, 0);
+            }
+        }
+
+        // ===== HIGHLIGHTS =====
+        function toggleHighlight(slideId) {
+            if (highlights.has(slideId)) {
+                highlights.delete(slideId);
+            } else {
+                highlights.add(slideId);
+            }
+            renderGridView();
+        }
+
+        // ===== COMPARE VIEW =====
+        function addToCompare(slide, slotIndex) {
+            compareSlots[slotIndex] = slide;
+            renderCompareView();
+        }
+
+        function renderCompareView() {
+            compareSlots.forEach((slide, idx) => {
+                const slot = document.querySelector(`.compare-slot[data-slot="${idx}"]`);
+                if (slide) {
+                    slot.innerHTML = `
+                        <img src="${slide.src}" alt="">
+                        <div class="compare-slot-label">${slide.album} — ${slide.slideNum}</div>
+                    `;
+                    slot.classList.add('filled');
+                } else {
+                    slot.innerHTML = '<span class="drop-zone-text">Drop or click to add slide</span>';
+                    slot.classList.remove('filled');
+                }
+            });
+        }
+
+        // ===== FILTERING =====
+        function filterSlides(filter) {
+            switch (filter) {
+                case 'highlighted':
+                    filteredSlides = allSlides.filter(s => highlights.has(s.id));
+                    break;
+                case 'playlist':
+                    filteredSlides = allSlides.filter(s => playlist.some(p => p.id === s.id));
+                    break;
+                default:
+                    filteredSlides = [...allSlides];
+            }
+            renderGridView();
+        }
+
+        function searchSlides(query) {
+            if (!query) {
+                filteredSlides = [...allSlides];
+            } else {
+                const q = query.toLowerCase();
+                filteredSlides = allSlides.filter(s => 
+                    s.family.toLowerCase().includes(q) || 
+                    s.album.toLowerCase().includes(q)
+                );
+            }
+            renderGridView();
+        }
+
+        function filterByFamily(familyName) {
+            filteredSlides = allSlides.filter(s => s.family === familyName);
+            renderGridView();
+        }
+
+        function filterByAlbum(albumPath) {
+            filteredSlides = allSlides.filter(s => s.albumPath === albumPath);
+            renderGridView();
+        }
+
+        // ===== VIEW SWITCHING =====
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(btn => 
+                btn.classList.toggle('active', btn.dataset.view === view)
+            );
+
+            document.getElementById('grid-view').style.display = view === 'grid' ? 'grid' : 'none';
+            document.getElementById('compare-view').style.display = view === 'compare' ? 'grid' : 'none';
+            document.getElementById('family-view').style.display = view === 'family' ? 'flex' : 'none';
+            document.getElementById('filter-bar').style.display = (view === 'grid' || view === 'compare') ? 'flex' : 'none';
+
+            if (view === 'slideshow') {
+                openSlideshow(filteredSlides.length ? filteredSlides : allSlides, 0);
+            } else if (view === 'family') {
+                renderFamilyView();
+            }
+        }
+
+        // ===== EVENTS =====
+        function bindEvents() {
+            // View mode buttons
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchView(btn.dataset.view));
+            });
+
+            // Grid slide clicks
+            document.getElementById('grid-view').addEventListener('click', e => {
+                const card = e.target.closest('.slide-card');
+                if (!card) return;
+
+                const slideId = card.dataset.id;
+                const slide = allSlides.find(s => s.id === slideId);
+
+                if (e.target.closest('.highlight-btn')) {
+                    toggleHighlight(slideId);
+                } else if (e.target.closest('.playlist-btn')) {
+                    if (playlist.some(p => p.id === slideId)) {
+                        removeFromPlaylist(slideId);
+                    } else {
+                        addToPlaylist(slide);
+                    }
+                } else {
+                    // Open slideshow at this slide
+                    const idx = filteredSlides.findIndex(s => s.id === slideId);
+                    openSlideshow(filteredSlides, idx >= 0 ? idx : 0);
+                }
+            });
+
+            // Family view clicks
+            document.getElementById('family-view').addEventListener('click', e => {
+                const thumb = e.target.closest('.album-thumb');
+                if (thumb) {
+                    const slideId = thumb.dataset.id;
+                    const slide = allSlides.find(s => s.id === slideId);
+                    const albumSlides = allSlides.filter(s => s.albumPath === slide.albumPath);
+                    const idx = albumSlides.findIndex(s => s.id === slideId);
+                    openSlideshow(albumSlides, idx);
+                }
+            });
+
+            // Family tree clicks
+            document.getElementById('family-tree').addEventListener('click', e => {
+                const familyHeader = e.target.closest('.family-header');
+                const albumItem = e.target.closest('.album-item');
+
+                if (familyHeader) {
+                    filterByFamily(familyHeader.dataset.family);
+                    document.querySelectorAll('.family-header').forEach(h => h.classList.remove('active'));
+                    familyHeader.classList.add('active');
+                } else if (albumItem) {
+                    filterByAlbum(albumItem.dataset.album);
+                    document.querySelectorAll('.album-item').forEach(a => a.classList.remove('active'));
+                    albumItem.classList.add('active');
+                }
+            });
+
+            // Slideshow controls
+            document.getElementById('close-slideshow').addEventListener('click', closeSlideshow);
+            document.getElementById('next-slide').addEventListener('click', nextSlide);
+            document.getElementById('prev-slide').addEventListener('click', prevSlide);
+            document.getElementById('auto-play-btn').addEventListener('click', toggleAutoPlay);
+            document.getElementById('highlight-current').addEventListener('click', () => {
+                const slide = slideshowSlides[slideshowIndex];
+                toggleHighlight(slide.id);
+                updateSlideshowDisplay();
+            });
+            document.getElementById('add-to-playlist').addEventListener('click', () => {
+                const slide = slideshowSlides[slideshowIndex];
+                addToPlaylist(slide);
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', e => {
+                if (document.getElementById('slideshow').classList.contains('active')) {
+                    if (e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        nextSlide();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'Escape') {
+                        closeSlideshow();
+                    }
+                }
+            });
+
+            // Playlist panel
+            document.getElementById('playlist-toggle').addEventListener('click', () => {
+                document.getElementById('playlist-panel').classList.toggle('open');
+            });
+            document.getElementById('clear-playlist').addEventListener('click', clearPlaylist);
+            document.getElementById('play-playlist').addEventListener('click', playPlaylist);
+            document.getElementById('playlist-content').addEventListener('click', e => {
+                const removeBtn = e.target.closest('.playlist-item-remove');
+                if (removeBtn) {
+                    removeFromPlaylist(removeBtn.dataset.id);
+                }
+            });
+
+            // Sidebar toggle
+            document.getElementById('sidebar-toggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('collapsed');
+            });
+
+            // Filter chips
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    filterSlides(chip.dataset.filter);
+                });
+            });
+
+            // Search
+            document.getElementById('search-box').addEventListener('input', e => {
+                searchSlides(e.target.value);
+            });
+
+            // Compare view slots
+            document.querySelectorAll('.compare-slot').forEach(slot => {
+                slot.addEventListener('click', () => {
+                    if (!slot.classList.contains('filled')) {
+                        // Prompt to select a slide - for now just use first highlighted or first slide
+                        const slide = highlights.size > 0 
+                            ? allSlides.find(s => highlights.has(s.id))
+                            : allSlides[0];
+                        if (slide) {
+                            addToCompare(slide, parseInt(slot.dataset.slot));
+                        }
+                    }
+                });
+            });
+        }
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>

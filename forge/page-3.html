@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Humanists | Ontological Engineers</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Call to Action Box */
+        .cta-box {
+            background: rgba(201, 162, 39, 0.08);
+            border: 1px solid var(--border-gold);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .cta-box strong {
+            color: var(--gold);
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Scroll/Papyrus Card */
+        .scroll-card {
+            background: linear-gradient(135deg, #2a2520 0%, #1a1815 100%);
+            border: 1px solid rgba(201, 162, 39, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .scroll-content {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Graph Card */
+        .graph-card {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--teal);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .graph-title {
+            color: var(--teal);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .graph-visual {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+
+        .graph-node {
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .graph-node.center {
+            background: rgba(45, 212, 191, 0.2);
+            border-color: var(--teal);
+            grid-column: 2;
+        }
+
+        /* JSON Card */
+        .json-card {
+            background: rgba(15, 20, 30, 0.95);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        .json-content {
+            color: var(--teal);
+            line-height: 1.6;
+        }
+
+        .json-key {
+            color: var(--gold);
+        }
+
+        .json-string {
+            color: var(--teal);
+        }
+
+        /* Task Section */
+        .task-section {
+            background: rgba(20, 25, 35, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .task-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+        }
+
+        .task-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .task-desc strong {
+            color: var(--text);
+        }
+
+        /* Ask Section */
+        .ask-section {
+            background: rgba(201, 162, 39, 0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .ask-label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ask-text {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">The <span class="accent">Humanists:</span></h1>
+            <p class="subtitle">From Descriptive Text to Executable World Logic</p>
+        </header>
+
+        <div class="cta-box">
+            <p>Stop Writing <strong>*About*</strong> the Shield. <strong>Architect Its World Logic.</strong></p>
+        </div>
+
+        <div class="content-grid">
+            <div class="scroll-card">
+                <div class="scroll-content">
+                    "Ἐν μέσῳ δὲ ἄρα σάκεϊ ἐρίτιμον
+                    ἐποίει γαῖαν καὶ οὐρανὸν ἠδὲ
+                    θάλασσαν ἠέλιόν τ' ἀκάμαντα
+                    σελήνην τε πλήθουσαν..."
+                    <br><br>
+                    — Iliad 18, The Shield Description
+                </div>
+            </div>
+
+            <div class="graph-card">
+                <div class="graph-title">Scene Graph</div>
+                <div class="graph-visual">
+                    <div class="graph-node">RITUALS</div>
+                    <div class="graph-node center">ONTOLOGY</div>
+                    <div class="graph-node">RITUALS</div>
+                    <div class="graph-node">PHYSICS</div>
+                    <div class="graph-node center"
+                        style="background: rgba(201, 162, 39, 0.2); border-color: var(--gold);">ENTITIES</div>
+                    <div class="graph-node">SOCIAL ORDER</div>
+                    <div class="graph-node">SOCIAL ORDER</div>
+                    <div class="graph-node center">SOCIAL ORDER</div>
+                    <div class="graph-node">METAPHORS</div>
+                </div>
+            </div>
+
+            <div class="json-card">
+                <div class="json-content">
+                    {<br>
+                    &nbsp;&nbsp;<span class="json-key">"Zone"</span>: <span class="json-string">"Inner Ring"</span>,<br>
+                    &nbsp;&nbsp;<span class="json-key">"Entity"</span>: <span class="json-string">"Bride"</span>,<br>
+                    &nbsp;&nbsp;<span class="json-key">"Activity"</span>: <span
+                        class="json-string">"Marching"</span>,<br>
+                    &nbsp;&nbsp;<span class="json-key">"Sound"</span>: <span class="json-string">"Flutes"</span>,<br>
+                    &nbsp;&nbsp;<span class="json-key">"Lighting"</span>: <span
+                        class="json-string">"Torchlight"</span>,<br>
+                    &nbsp;&nbsp;<span class="json-key">"Context"</span>: <span class="json-string">"City at
+                        Peace"</span><br>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="task-section">
+            <div class="task-header">
+                <div class="task-icon">⚖</div>
+                <h2 class="task-title">THE TASK: ONTOLOGICAL ENGINEERS</h2>
+            </div>
+            <p class="task-desc">
+                You are the System Architects. Define the logic. Convert Table 1 (Iliad 18) into
+                a <strong>JSON Scene Graph</strong>. You provide the <strong>*World Text*</strong>.
+            </p>
+        </div>
+
+        <div class="ask-section">
+            <div class="ask-label">THE ASK</div>
+            <p class="ask-text">
+                Map every line of Iliad 18 into a data structure. Define rules for 1200 BC function.
+            </p>
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-2.html" class="nav-btn">←</a>
+        <a href="page-4.html" class="nav-btn">→</a>
+    </nav>
+</body>
+
+</html>

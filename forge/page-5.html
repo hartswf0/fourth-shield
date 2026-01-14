@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase II: The Substrate | Hephaestus Checkpoint</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --bronze: #cd7f32;
+            --copper: #b87333;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .phase-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--bronze);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Source Cards */
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .source-card {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .source-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .source-image {
+            height: 150px;
+            background: linear-gradient(135deg, var(--bronze), var(--copper));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .source-content {
+            padding: 1.25rem;
+        }
+
+        .source-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .source-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Pipeline Flow */
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(20, 25, 35, 0.6);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid var(--border-gold);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .flow-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .flow-value {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .flow-arrow {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .flow-box.checkpoint {
+            background: rgba(205, 127, 50, 0.2);
+            border-color: var(--bronze);
+        }
+
+        .flow-box.checkpoint .flow-value {
+            color: var(--bronze);
+        }
+
+        .flow-box.goal {
+            background: rgba(201, 162, 39, 0.2);
+        }
+
+        /* Info List */
+        .info-list {
+            background: rgba(20, 25, 35, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .info-bullet {
+            color: var(--gold);
+        }
+
+        .info-item strong {
+            color: var(--text);
+        }
+
+        /* Why Section */
+        .why-section {
+            background: rgba(201, 162, 39, 0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .why-label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .why-text strong {
+            color: var(--text);
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 768px) {
+            .sources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <p class="phase-label">PHASE II: THE SUBSTRATE (THE ASSET LIBRARY)</p>
+            <h1 class="title">The "<span class="accent">Hephaestus</span>" Checkpoint: Material Reality</h1>
+        </header>
+
+        <div class="sources-grid">
+            <div class="source-card">
+                <div class="source-image">🏺</div>
+                <div class="source-content">
+                    <h3 class="source-title">MYCENAEAN BRONZE FINDS</h3>
+                    <p class="source-desc">Archaeological Data, Chemical Composition, Oxide Layers</p>
+                </div>
+            </div>
+
+            <div class="source-card">
+                <div class="source-image">⚒</div>
+                <div class="source-content">
+                    <h3 class="source-title">KATSIKIS RECONSTRUCTIONS</h3>
+                    <p class="source-desc">Historical Craft, Dimitrios Katsikis, "The Supercar of the Bronze Age"</p>
+                </div>
+            </div>
+
+            <div class="source-card">
+                <div class="source-image">✨</div>
+                <div class="source-content">
+                    <h3 class="source-title">MACRO GOLD SHOTS</h3>
+                    <p class="source-desc">Pre-Industrial Goldwork, Fine Detail, Metallic Patina</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pipeline-flow">
+            <div class="flow-box">
+                <div class="flow-label">Training</div>
+                <div class="flow-value">Data Sources</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box checkpoint">
+                <div class="flow-label">HEPHAESTUS CHECKPOINT</div>
+                <div class="flow-value">(UNREAL ENGINE 5)</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box goal">
+                <div class="flow-label">The Goal: Heavy,</div>
+                <div class="flow-value">Pre-Industrial, Dangerous</div>
+            </div>
+        </div>
+
+        <div class="info-list">
+            <div class="info-item">
+                <span class="info-bullet">•</span>
+                <span><strong>Activity:</strong> Training the Model (Stable Diffusion / Flux)</span>
+            </div>
+            <div class="info-item">
+                <span class="info-bullet">•</span>
+                <span><strong>Output:</strong> The "Hephaestus" Checkpoint</span>
+            </div>
+            <div class="info-item">
+                <span class="info-bullet">•</span>
+                <span><strong>Goal:</strong> Fine-Tuned Model trained exclusively on authentic materials, ensuring no
+                    modern industrial elements</span>
+            </div>
+        </div>
+
+        <div class="why-section">
+            <div class="why-label">WHY:</div>
+            <p class="why-text">
+                Prevents the "<strong>Auden Glitch</strong>". Physically blocks AI from generating modern elements like
+                barbed wire;
+                ensures the "feel" of the artifact is grounded in <strong>1200 BC physics and craftsmanship</strong>.
+            </p>
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-4.html" class="nav-btn">←</a>
+        <a href="page-6.html" class="nav-btn">→</a>
+    </nav>
+</body>
+
+</html>

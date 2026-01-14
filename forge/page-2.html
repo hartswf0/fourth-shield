@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fourth Shield | Project Identity</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Evolution Timeline */
+        .evolution {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .era-card {
+            background: rgba(20, 25, 35, 0.8);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .era-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .era-card.highlight {
+            background: rgba(201, 162, 39, 0.1);
+            border-color: var(--gold);
+        }
+
+        .era-version {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--bg-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .era-icon {
+            font-size: 3rem;
+            margin: 1rem 0;
+            opacity: 0.9;
+        }
+
+        .era-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .era-year {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .era-concept {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .era-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Arrow connectors */
+        .era-card::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .era-card:last-child::after {
+            display: none;
+        }
+
+        /* Pitch Section */
+        .pitch {
+            background: rgba(201, 162, 39, 0.08);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .pitch-label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .pitch-text {
+            font-size: 1.3rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .pitch-text strong {
+            color: var(--gold);
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .evolution {
+                grid-template-columns: 1fr;
+            }
+
+            .era-card::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">The <span class="accent">Fourth Shield</span></h1>
+            <p class="subtitle">From Descriptive Text to Executable Code: The Project Identity</p>
+        </header>
+
+        <section class="evolution">
+            <div class="era-card">
+                <span class="era-version">v1.0</span>
+                <div class="era-icon">📜</div>
+                <h3 class="era-name">HOMER</h3>
+                <p class="era-year">(750 BC)</p>
+                <p class="era-concept">COSMOLOGY</p>
+                <p class="era-desc">Poetry / Oral Simulation</p>
+            </div>
+
+            <div class="era-card">
+                <span class="era-version">v2.0</span>
+                <div class="era-icon">🌀</div>
+                <h3 class="era-name">VIRGIL</h3>
+                <p class="era-year">(19 BC)</p>
+                <p class="era-concept">HISTORY</p>
+                <p class="era-desc">Propaganda / Linear Narrative</p>
+            </div>
+
+            <div class="era-card">
+                <span class="era-version">v3.0</span>
+                <div class="era-icon">📺</div>
+                <h3 class="era-name">AUDEN</h3>
+                <p class="era-year">(1952)</p>
+                <p class="era-concept">CRITIQUE</p>
+                <p class="era-desc">Glitch / Industrial Reality</p>
+            </div>
+
+            <div class="era-card highlight">
+                <span class="era-version">v4.0</span>
+                <div class="era-icon">🛡</div>
+                <h3 class="era-name">THE PROJECT</h3>
+                <p class="era-year">(2026)</p>
+                <p class="era-concept">SIMULATION</p>
+                <p class="era-desc">Neurosymbolic AI / World Model</p>
+            </div>
+        </section>
+
+        <section class="pitch">
+            <div class="pitch-label">THE PITCH</div>
+            <p class="pitch-text">
+                We are building <strong>Shield v4.0</strong>.<br>
+                We are moving Ekphrasis from "<strong>Descriptive Text</strong>" to "<strong>Executable Code</strong>".
+            </p>
+        </section>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-1.html" class="nav-btn">←</a>
+        <a href="page-3.html" class="nav-btn">→</a>
+    </nav>
+
+    <footer class="footer">
+        <a href="#">The Computational Ekphrasis Lab</a> · Proposal for Participation
+    </footer>
+</body>
+
+</html>

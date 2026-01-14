@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forge the Fourth Shield | Complete Experience</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            color: var(--bg-dark);
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        /* Pages Grid */
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .page-card {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .page-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.15);
+        }
+
+        .page-preview {
+            height: 180px;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1), rgba(205, 127, 50, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .page-number {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--gold);
+            color: var(--bg-dark);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .page-icon {
+            font-size: 4rem;
+            opacity: 0.8;
+        }
+
+        .page-content {
+            padding: 1.25rem;
+        }
+
+        .page-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .page-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Forge the <span class="accent">Fourth Shield</span></h1>
+            <p class="subtitle">
+                A neurosymbolic simulation journey from ancient poetry to executable code.
+                Explore all 9 interactive pages built from presentation wireframes.
+            </p>
+        </header>
+
+        <div class="quick-actions">
+            <a href="page-1.html" class="action-btn">Start Journey →</a>
+            <a href="page-9.html" class="action-btn secondary">Join a Tribe</a>
+        </div>
+
+        <div class="pages-grid">
+            <a href="page-1.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">1</span>
+                    <img src="1.png" alt="Page 1 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Landing Page</h3>
+                    <p class="page-desc">The Forge introduction with version timeline from Homer to Shield v4.0</p>
+                </div>
+            </a>
+
+            <a href="page-2.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">2</span>
+                    <img src="2.png" alt="Page 2 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Project Identity</h3>
+                    <p class="page-desc">The evolution of Ekphrasis: Cosmology → History → Critique → Simulation</p>
+                </div>
+            </a>
+
+            <a href="page-3.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">3</span>
+                    <img src="3.png" alt="Page 3 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">The Humanists</h3>
+                    <p class="page-desc">Ontological Engineers: From descriptive text to executable world logic</p>
+                </div>
+            </a>
+
+            <a href="page-4.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">4</span>
+                    <img src="4.png" alt="Page 4 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Causal Prompting Benchmark</h3>
+                    <p class="page-desc">The pipeline that filters out Auden's modernity to honor ancient data</p>
+                </div>
+            </a>
+
+            <a href="page-5.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">5</span>
+                    <img src="5.png" alt="Page 5 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">The Hephaestus Checkpoint</h3>
+                    <p class="page-desc">Phase II: Material reality from Mycenaean bronze to gold macro shots</p>
+                </div>
+            </a>
+
+            <a href="page-6.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">6</span>
+                    <img src="6.png" alt="Page 6 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Project Roadmap</h3>
+                    <p class="page-desc">From text to simulation: Phase I Ontology and Phase II Substrate</p>
+                </div>
+            </a>
+
+            <a href="page-7.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">7</span>
+                    <img src="7.png" alt="Page 7 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Simulation Assembly</h3>
+                    <p class="page-desc">Phase III & IV: Unreal Engine 5 integration and the Auden Button</p>
+                </div>
+            </a>
+
+            <a href="page-8.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">8</span>
+                    <img src="8.png" alt="Page 8 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">The Call to Forge</h3>
+                    <p class="page-desc">We seek three tribes: Humanists, Technicals, and Artisans</p>
+                </div>
+            </a>
+
+            <a href="page-9.html" class="page-card">
+                <div class="page-preview">
+                    <span class="page-number">9</span>
+                    <img src="9.png" alt="Page 9 Preview">
+                </div>
+                <div class="page-content">
+                    <h3 class="page-title">Secure Your Place</h3>
+                    <p class="page-desc">Interactive tribe selection with badge registration</p>
+                </div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-brand">The Computational Ekphrasis Lab</div>
+            <p class="footer-text">Proposal for Participation · Shield Project v4.0 (2026)</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Call to Forge | We Seek Three Tribes</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tribes Banner */
+        .tribes-banner {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .banner-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+        }
+
+        /* Tribes Grid */
+        .tribes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tribe-card {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tribe-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(201, 162, 39, 0.15);
+        }
+
+        .tribe-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .tribe-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .tribe-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .tribe-task {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tribe-task strong {
+            color: var(--text);
+        }
+
+        /* Flow diagram */
+        .tribe-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-gold);
+        }
+
+        .flow-item {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        /* Goal Section */
+        .goal-section {
+            background: rgba(201, 162, 39, 0.08);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .goal-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .goal-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .goal-text strong {
+            color: var(--gold);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            color: var(--bg-dark);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(201, 162, 39, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-gold);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 768px) {
+            .tribes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">The <span class="accent">Call to Forge</span></h1>
+            <p class="subtitle">
+                Translating Ancient Poetry into Executable Code: A Neurosymbolic Simulation of the Shield of Achilles
+            </p>
+        </header>
+
+        <div class="tribes-banner">
+            <p class="banner-text">WE SEEK THREE TRIBES</p>
+        </div>
+
+        <div class="tribes-grid">
+            <!-- Humanists -->
+            <div class="tribe-card">
+                <div class="tribe-icon">📜</div>
+                <h3 class="tribe-name">THE HUMANISTS:</h3>
+                <p class="tribe-role">ONTOLOGICAL ENGINEERS</p>
+                <p class="tribe-task">
+                    <strong>Role:</strong> System Architects<br>
+                    <strong>Task:</strong> Convert Iliad 18 to JSON Scene Graph. Define the logic of the ancient world,
+                    providing the World Text.
+                </p>
+                <div class="tribe-flow">
+                    <div class="flow-item">ONTOLOGY<br>SCHEMA<br>(JSON)</div>
+                </div>
+            </div>
+
+            <!-- Technicals -->
+            <div class="tribe-card">
+                <div class="tribe-icon">🧠</div>
+                <h3 class="tribe-name">THE TECHNICALS:</h3>
+                <p class="tribe-role">SIMULATION BUILDERS</p>
+                <p class="tribe-task">
+                    <strong>Role:</strong> Solve the "Hallucination Problem".<br>
+                    <strong>Task:</strong> Build a causal pipeline respecting "Homeric Constraints" without industrial
+                    glitch. Understand 1200 BC physics.
+                </p>
+                <div class="tribe-flow">
+                    <div class="flow-item">NEUROSYMBOLIC<br>AI PIPELINE</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">MODERNIST<br>GLITCH</div>
+                </div>
+            </div>
+
+            <!-- Artisans -->
+            <div class="tribe-card">
+                <div class="tribe-icon">⚒</div>
+                <h3 class="tribe-name">THE ARTISANS:</h3>
+                <p class="tribe-role">MATERIAL DESIGNERS</p>
+                <p class="tribe-task">
+                    <strong>Role:</strong> Provide Ground Truth.<br>
+                    <strong>Task:</strong> Train models on real Mycenaean bronze and Katsikis reconstructions. Ensure
+                    the heavy, dangerous feel of the artifact.
+                </p>
+                <div class="tribe-flow">
+                    <div class="flow-item">RAW<br>MATERIALS</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">SUBSTRATE MODEL<br>(UNREAL ENGINE 5)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="goal-section">
+            <div class="goal-label">GOAL: RESURRECT THE HOMERIC WORLD WITHOUT INDUSTRIAL GLITCH</div>
+            <p class="goal-text">
+                Testing if modern AI can reconstruct the '<strong>Homeric Ideal</strong>' as an Operable World Model,
+                avoiding the data drift of history.
+            </p>
+        </div>
+
+        <div class="cta-section">
+            <a href="page-9.html" class="cta-btn">Choose Your Tribe →</a>
+        </div>
+
+        <footer class="footer">
+            The Computational Ekphrasis Lab
+        </footer>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-7.html" class="nav-btn">←</a>
+        <a href="page-9.html" class="nav-btn">→</a>
+    </nav>
+</body>
+
+</html>

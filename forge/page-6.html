@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Roadmap | From Text to Simulation</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0d12;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --bronze: #cd7f32;
+            --teal: #2dd4bf;
+            --text: #e8e6e3;
+            --text-muted: #9ca3af;
+            --border-gold: rgba(201, 162, 39, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #0a1628 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .title .accent {
+            color: var(--gold);
+        }
+
+        /* Phases Grid */
+        .phases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .phase-card {
+            background: rgba(20, 25, 35, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .phase-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        .phase-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Flow within phase */
+        .phase-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flow-item {
+            text-align: center;
+        }
+
+        .flow-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .flow-value {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .flow-arrow {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        /* Example box */
+        .example-box {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .example-label {
+            font-size: 0.7rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--teal);
+            line-height: 1.5;
+        }
+
+        /* Goal */
+        .phase-goal {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-gold);
+            padding-top: 1rem;
+        }
+
+        .phase-goal strong {
+            color: var(--text);
+        }
+
+        /* Hallucination callout */
+        .hallucination-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hallucination-icon {
+            font-size: 1.5rem;
+        }
+
+        .hallucination-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Assembly Ready */
+        .assembly-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .assembly-arrow {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .assembly-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            color: var(--bg-dark);
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        /* Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 13, 18, 0.9);
+            color: var(--gold);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 768px) {
+            .phases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">Project <span class="accent">Roadmap:</span></h1>
+            <p class="title">From Text to Simulation</p>
+        </header>
+
+        <div class="phases-grid">
+            <!-- Phase I -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-icon">📜</div>
+                    <div>
+                        <h2 class="phase-title">PHASE I: THE ONTOLOGY</h2>
+                        <p class="phase-subtitle">(The Schema)</p>
+                    </div>
+                </div>
+
+                <div class="phase-flow">
+                    <div class="flow-item">
+                        <div class="flow-label">Activity</div>
+                        <div class="flow-value">Two-Day Hackathon</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div class="flow-label">Output</div>
+                        <div class="flow-value">The_Shield_Schema.json</div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-label">EXAMPLE:</div>
+                    <div class="example-text">
+                        "Zone: Inner Ring > Entity: Bride > Activity:<br>
+                        Marching > Sound: Flutes > Lighting: Torchlight"
+                    </div>
+                </div>
+
+                <p class="phase-goal">
+                    <strong>Goal:</strong> Map every line of Iliad 18 to data structure.
+                </p>
+            </div>
+
+            <!-- Phase II -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-icon">🔧</div>
+                    <div>
+                        <h2 class="phase-title">PHASE II: THE SUBSTRATE</h2>
+                        <p class="phase-subtitle">(The Asset Library)</p>
+                    </div>
+                </div>
+
+                <div class="phase-flow">
+                    <div class="flow-item">
+                        <div class="flow-label">Activity</div>
+                        <div class="flow-value">Parallel Training of<br>Hephaestus Model</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <div class="flow-label">Output</div>
+                        <div class="flow-value">The "Hephaestus"<br>Checkpoint</div>
+                    </div>
+                </div>
+
+                <div class="hallucination-box">
+                    <div class="hallucination-icon">🚫</div>
+                    <div class="hallucination-text">Eliminate Modern Hallucinations</div>
+                </div>
+
+                <p class="phase-goal">
+                    <strong>Goal:</strong> Train on archaeological bronze; ensure historical fidelity.
+                </p>
+            </div>
+        </div>
+
+        <div class="assembly-section">
+            <div class="assembly-arrow">↓</div>
+            <div class="assembly-badge">ASSEMBLY READY</div>
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <a href="page-5.html" class="nav-btn">←</a>
+        <a href="page-7.html" class="nav-btn">→</a>
+    </nav>
+</body>
+
+</html>
