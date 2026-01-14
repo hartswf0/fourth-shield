@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,7 +123,7 @@
             transition: left 0.3s;
         }
 
-        .sidebar.collapsed + .sidebar-toggle {
+        .sidebar.collapsed+.sidebar-toggle {
             left: 0;
             border-radius: 0 0.5rem 0.5rem 0;
         }
@@ -203,7 +204,7 @@
             transition: margin-left 0.3s;
         }
 
-        .sidebar.collapsed ~ .main {
+        .sidebar.collapsed~.main {
             margin-left: 0;
         }
 
@@ -249,7 +250,7 @@
         .slide-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 50%);
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
             opacity: 0;
             transition: opacity 0.3s;
             display: flex;
@@ -393,8 +394,13 @@
             border-color: var(--accent);
         }
 
-        .slideshow-nav.prev { left: 2rem; }
-        .slideshow-nav.next { right: 2rem; }
+        .slideshow-nav.prev {
+            left: 2rem;
+        }
+
+        .slideshow-nav.next {
+            right: 2rem;
+        }
 
         .slideshow-footer {
             padding: 1rem 2rem;
@@ -431,9 +437,18 @@
             min-height: calc(100vh - 120px);
         }
 
-        .compare-container.cols-2 { grid-template-columns: repeat(2, 1fr); }
-        .compare-container.cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .compare-container.cols-4 { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
+        .compare-container.cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .compare-container.cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .compare-container.cols-4 {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
 
         .compare-slot {
             background: var(--bg-card);
@@ -694,7 +709,7 @@
             box-shadow: 0 4px 20px var(--accent-glow);
         }
 
-        .playlist-panel.open ~ .playlist-toggle {
+        .playlist-panel.open~.playlist-toggle {
             right: 320px;
         }
 
@@ -731,7 +746,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Filter bar */
@@ -814,21 +831,26 @@
             .sidebar {
                 transform: translateX(-100%);
             }
+
             .main {
                 margin-left: 0;
             }
+
             .grid-container {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+
             .header {
                 padding: 1rem;
             }
+
             .view-modes {
                 overflow-x: auto;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -878,8 +900,10 @@
         <div class="compare-container cols-2" id="compare-view" style="display: none;">
             <div class="compare-slot" data-slot="0"><span class="drop-zone-text">Drop or click to add slide</span></div>
             <div class="compare-slot" data-slot="1"><span class="drop-zone-text">Drop or click to add slide</span></div>
-            <div class="compare-slot" data-slot="2" style="display: none;"><span class="drop-zone-text">Drop or click to add slide</span></div>
-            <div class="compare-slot" data-slot="3" style="display: none;"><span class="drop-zone-text">Drop or click to add slide</span></div>
+            <div class="compare-slot" data-slot="2" style="display: none;"><span class="drop-zone-text">Drop or click to
+                    add slide</span></div>
+            <div class="compare-slot" data-slot="3" style="display: none;"><span class="drop-zone-text">Drop or click to
+                    add slide</span></div>
         </div>
 
         <!-- Family View -->
@@ -953,13 +977,13 @@
                 family: "Fourth Shield",
                 albums: [
                     { name: "The Fourth Shield", path: "../The Fourth Shield", slides: 9 },
-                    { name: "Forge the Fourth Shield", path: "../Forge the Fourth Shield", slides: 9 }
+                    { name: "Forge the Fourth Shield", path: "../forge", slides: 9 }
                 ]
             },
             {
                 family: "Crisis Machines",
                 albums: [
-                    { name: "Crisis Machines", path: "../Crisis Machines", slides: 9 },
+                    { name: "Crisis Machines", path: ".", slides: 9 },
                     { name: "Crisis Machines Extended", path: "../_mnt_okcomputer_output_crisis_machines.pptx.html (4) 2", slides: 12 }
                 ]
             },
@@ -1084,9 +1108,9 @@
                                 <div class="album-row">
                                     <div class="album-row-title">${album.name}</div>
                                     <div class="album-slides-row">
-                                        ${Array.from({length: album.slides}, (_, i) => `
-                                            <div class="album-thumb" data-id="${album.path}/${i+1}">
-                                                <img src="${album.path}/${i+1}.png" alt="Slide ${i+1}" loading="lazy">
+                                        ${Array.from({ length: album.slides }, (_, i) => `
+                                            <div class="album-thumb" data-id="${album.path}/${i + 1}">
+                                                <img src="${album.path}/${i + 1}.png" alt="Slide ${i + 1}" loading="lazy">
                                             </div>
                                         `).join('')}
                                     </div>
@@ -1119,7 +1143,7 @@
             document.getElementById('slideshow-title').textContent = `${slide.album} — Slide ${slide.slideNum}`;
             document.getElementById('slide-counter').textContent = `${slideshowIndex + 1} / ${slideshowSlides.length}`;
             document.getElementById('progress-fill').style.width = `${((slideshowIndex + 1) / slideshowSlides.length) * 100}%`;
-            
+
             // Update highlight button state
             document.getElementById('highlight-current').classList.toggle('active', highlights.has(slide.id));
         }
@@ -1175,7 +1199,7 @@
         function updatePlaylistUI() {
             document.getElementById('playlist-count').textContent = playlist.length;
             const container = document.getElementById('playlist-content');
-            
+
             if (playlist.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
@@ -1255,8 +1279,8 @@
                 filteredSlides = [...allSlides];
             } else {
                 const q = query.toLowerCase();
-                filteredSlides = allSlides.filter(s => 
-                    s.family.toLowerCase().includes(q) || 
+                filteredSlides = allSlides.filter(s =>
+                    s.family.toLowerCase().includes(q) ||
                     s.album.toLowerCase().includes(q)
                 );
             }
@@ -1276,7 +1300,7 @@
         // ===== VIEW SWITCHING =====
         function switchView(view) {
             currentView = view;
-            document.querySelectorAll('.view-btn').forEach(btn => 
+            document.querySelectorAll('.view-btn').forEach(btn =>
                 btn.classList.toggle('active', btn.dataset.view === view)
             );
 
@@ -1416,7 +1440,7 @@
                 slot.addEventListener('click', () => {
                     if (!slot.classList.contains('filled')) {
                         // Prompt to select a slide - for now just use first highlighted or first slide
-                        const slide = highlights.size > 0 
+                        const slide = highlights.size > 0
                             ? allSlides.find(s => highlights.has(s.id))
                             : allSlides[0];
                         if (slide) {
@@ -1431,4 +1455,5 @@
         init();
     </script>
 </body>
+
 </html>
