@@ -2,7 +2,7 @@
   "title": "Shield of Achilles Production Pipeline",
   "version": "1.0.0",
   "generated": "2026-01-14",
-  "totalPages": 9,
+  "totalPages": 10,
   "scenes": [
     {
       "id": "0001",
@@ -57,6 +57,12 @@
       "title": "9",
       "page": "pages/0009.png",
       "scene": "scenes/0009/scene.json"
+    },
+    {
+      "id": "0010",
+      "title": "favicon",
+      "page": "pages/0010.png",
+      "scene": "scenes/0010/scene.json"
     }
   ]
 }

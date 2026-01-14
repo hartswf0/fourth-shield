@@ -1,7 +1,7 @@
 {
-  "id": "0005",
-  "title": "Page 5: 5",
-  "sourceImage": "../pages/0005.png",
+  "id": "0010",
+  "title": "Page 10: favicon",
+  "sourceImage": "../pages/0010.png",
   "units": {
     "system": "pixels",
     "scale": 1
@@ -71,7 +71,7 @@
     "textures": [
       {
         "id": "page",
-        "src": "../pages/0005.png"
+        "src": "../pages/0010.png"
       }
     ],
     "ldraw": []
