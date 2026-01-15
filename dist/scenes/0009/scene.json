@@ -10,8 +10,8 @@
     "type": "perspective",
     "position": [
       0,
-      0,
-      1200
+      300,
+      800
     ],
     "target": [
       0,
@@ -21,29 +21,29 @@
     "fov": 50
   },
   "environment": {
-    "background": "#0a0a0f",
+    "background": "#050505",
     "fog": {
       "enabled": true,
-      "color": "#0a0a0f",
+      "color": "#050505",
       "near": 800,
-      "far": 2000
+      "far": 3000
     }
   },
   "lights": [
     {
       "type": "hemisphere",
       "skyColor": "#c9a227",
-      "groundColor": "#0a0a0f",
-      "intensity": 0.4
+      "groundColor": "#050505",
+      "intensity": 0.5
     },
     {
       "type": "directional",
       "position": [
         300,
-        600,
-        400
+        800,
+        500
       ],
-      "intensity": 1.0,
+      "intensity": 1.2,
       "color": "#ffffff"
     },
     {
@@ -53,8 +53,8 @@
         300,
         500
       ],
-      "intensity": 0.6,
-      "color": "#cd7f32"
+      "intensity": 0.8,
+      "color": "#c9a227"
     },
     {
       "type": "point",
@@ -74,7 +74,100 @@
         "src": "../pages/0009.png"
       }
     ],
-    "ldraw": []
+    "ldraw": [
+      "0 FILE shield_scene_09_monday.mpd",
+      "0 Name: Monday Morning Plan - Triage Execution",
+      "0 Author: LEGOS-GPT + Grace Master Builder",
+      "0 !LDRAW_ORG Model",
+      "0 !LICENCE Redistributable under CCAL version 2.0",
+      "0 BFC CERTIFY CCW",
+      "0 //",
+      "0 \u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557",
+      "0 \u2551  MONDAY MORNING PLAN: TRIAGE EXECUTION & NEXT STEPS             \u2551",
+      "0 \u2551  Summary of Immediate Actions, Email Briefs, Team Alignment     \u2551",
+      "0 \u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d",
+      "0 //",
+      "0 LEGOS FRAMEWORK:",
+      "0 Location: Command Center - Three-Station Triage",
+      "0 Entity: Classicist, Dev, Director, CSV, Textures, World Context",
+      "0 Goal: Email requests, define camera, generate job cards",
+      "0 Obstacle: Animation distraction, observer confusion",
+      "0 Shift: CSV request by Friday, focus textures, lock camera stance",
+      "0 Solution: Three aligned work streams with clear deliverables",
+      "0 //",
+      "0 STEP 01: FLOOR - Triage Command Table",
+      "1  7  0 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat",
+      "1  7  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat",
+      "1  7  160 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat",
+      "0 STEP",
+      "0 STEP 02: CLASSICIST STATION (Left)",
+      "0 // Data Structuring tower",
+      "1  115  -80 -24 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "1  115  -80 -48 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "0 // CSV file icon",
+      "1  14  -80 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat",
+      "0 // Scroll/book for Iliad reference",
+      "1  19  -60 -72 0  1 0 0  0 1 0  0 0 1  parts/4738a.dat",
+      "0 STEP",
+      "0 STEP 03: CLASSICIST MINIFIG",
+      "1  14  -80 -24 -40  1 0 0  0 1 0  0 0 1  parts/3024.dat",
+      "1  297  -80 -48 -40  1 0 0  0 1 0  0 0 1  parts/973.dat",
+      "1  14  -80 -72 -40  1 0 0  0 1 0  0 0 1  parts/3626bp01.dat",
+      "0 STEP",
+      "0 STEP 04: DEV STATION (Center)",
+      "0 // Material Definition tower",
+      "1  39  40 -24 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "1  39  40 -48 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "0 // Bronze texture sample",
+      "1  366  40 -72 0  1 0 0  0 1 0  0 0 1  parts/3070b.dat",
+      "0 // Crossed-out animation symbol",
+      "1  4  60 -72 0  1 0 0  0 1 0  0 0 1  parts/4073.dat",
+      "0 STEP",
+      "0 STEP 05: DEV MINIFIG",
+      "1  39  40 -24 -40  1 0 0  0 1 0  0 0 1  parts/3024.dat",
+      "1  7  40 -48 -40  1 0 0  0 1 0  0 0 1  parts/973.dat",
+      "1  39  40 -72 -40  1 0 0  0 1 0  0 0 1  parts/3626bp01.dat",
+      "0 STEP",
+      "0 STEP 06: DIRECTOR STATION (Right)",
+      "0 // Spatial Decision tower",
+      "1  366  160 -24 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "1  366  160 -48 0  1 0 0  0 1 0  0 0 1  parts/3005.dat",
+      "0 // Camera icon",
+      "1  7  160 -72 0  1 0 0  0 1 0  0 0 1  parts/30089.dat",
+      "0 // Shield miniature",
+      "1  115  180 -72 0  1 0 0  0 1 0  0 0 1  parts/3846.dat",
+      "0 STEP",
+      "0 STEP 07: DIRECTOR MINIFIG",
+      "1  366  160 -24 -40  1 0 0  0 1 0  0 0 1  parts/3024.dat",
+      "1  0  160 -48 -40  1 0 0  0 1 0  0 0 1  parts/973.dat",
+      "1  366  160 -72 -40  1 0 0  0 1 0  0 0 1  parts/3626bp01.dat",
+      "0 STEP",
+      "0 STEP 08: ACTION CARDS (Top Row)",
+      "0 // Classicist action",
+      "1  14  -80 -96 40  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 // Dev action",
+      "1  14  40 -96 40  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 // Director action",
+      "1  14  160 -96 40  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 STEP",
+      "0 STEP 09: DELIVERABLE BOXES (Bottom Row)",
+      "0 // CSV deliverable",
+      "1  10  -80 0 60  1 0 0  0 1 0  0 0 1  parts/3003.dat",
+      "0 // Texture assets deliverable",
+      "1  10  40 0 60  1 0 0  0 1 0  0 0 1  parts/3003.dat",
+      "0 // World context deliverable",
+      "1  10  160 0 60  1 0 0  0 1 0  0 0 1  parts/3003.dat",
+      "0 STEP",
+      "0 STEP 10: JOB DESCRIPTION CARDS (Lower Banner)",
+      "0 // Ontology Lead card",
+      "1  115  -40 0 100  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 // Pipeline Engineer card",
+      "1  39  40 0 100  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 // World Builder card",
+      "1  366  120 0 100  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 STEP",
+      "0 NOFILE"
+    ]
   },
   "entities": [
     {
@@ -102,7 +195,7 @@
       }
     },
     {
-      "id": "title-bar",
+      "id": "title-context",
       "type": "cutoutPlane",
       "fromImage": "page",
       "cutout": {
@@ -113,8 +206,8 @@
       },
       "position": [
         0,
-        453,
-        200
+        450,
+        100
       ],
       "size": [
         1728,
@@ -122,380 +215,19 @@
       ],
       "material": {
         "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.55
-      }
-    },
-    {
-      "id": "region-1",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.02,
-        "y": 0.18,
-        "w": 0.28,
-        "h": 0.35
-      },
-      "position": [
-        -652,
-        156,
-        60
-      ],
-      "size": [
-        537,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.7
-      }
-    },
-    {
-      "id": "region-2",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.32,
-        "y": 0.18,
-        "w": 0.36,
-        "h": 0.35
-      },
-      "position": [
-        0,
-        156,
-        90
-      ],
-      "size": [
-        691,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.85
-      }
-    },
-    {
-      "id": "region-3",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.7,
-        "y": 0.18,
-        "w": 0.28,
-        "h": 0.35
-      },
-      "position": [
-        652,
-        156,
-        120
-      ],
-      "size": [
-        537,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.75
-      }
-    },
-    {
-      "id": "region-4",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.02,
-        "y": 0.56,
-        "w": 0.45,
-        "h": 0.22
-      },
-      "position": [
-        -489,
-        -183,
-        150
-      ],
-      "size": [
-        864,
-        237
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.8
-      }
-    },
-    {
-      "id": "region-5",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.5,
-        "y": 0.56,
-        "w": 0.48,
-        "h": 0.22
-      },
-      "position": [
-        460,
-        -183,
-        180
-      ],
-      "size": [
-        921,
-        237
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.5
-      }
-    },
-    {
-      "id": "region-6",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.35,
-        "y": 0.8,
-        "w": 0.3,
-        "h": 0.15
-      },
-      "position": [
-        0,
-        -405,
-        210
-      ],
-      "size": [
-        576,
-        162
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.95
-      }
-    },
-    {
-      "id": "accent-1",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.15,
-        "y": 0.3,
-        "w": 0.08,
-        "h": 0.08
-      },
-      "position": [
-        -595,
-        172,
-        180
-      ],
-      "size": [
-        153,
-        86
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.75
-      }
-    },
-    {
-      "id": "accent-2",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.48,
-        "y": 0.25,
-        "w": 0.06,
-        "h": 0.1
-      },
-      "position": [
-        19,
-        216,
-        160
-      ],
-      "size": [
-        115,
-        108
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.85
-      }
-    },
-    {
-      "id": "accent-3",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.8,
-        "y": 0.35,
-        "w": 0.07,
-        "h": 0.07
-      },
-      "position": [
-        643,
-        124,
-        170
-      ],
-      "size": [
-        134,
-        75
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.8
-      }
-    },
-    {
-      "id": "connector-line-1",
-      "type": "primitive",
-      "shape": "cylinder",
-      "position": [
-        0,
-        0,
-        100
-      ],
-      "rotation": [
-        0,
-        0,
-        90
-      ],
-      "scale": [
-        2,
-        400,
-        2
-      ],
-      "material": {
-        "color": "#c9a227",
-        "metalness": 0.6,
-        "roughness": 0.3,
-        "opacity": 0.4
-      }
-    },
-    {
-      "id": "node-sphere-1",
-      "type": "primitive",
-      "shape": "sphere",
-      "position": [
-        -300,
-        100,
-        120
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        25,
-        25,
-        25
-      ],
-      "material": {
-        "color": "#cd7f32",
-        "metalness": 0.8,
-        "roughness": 0.2
-      }
-    },
-    {
-      "id": "node-sphere-2",
-      "type": "primitive",
-      "shape": "sphere",
-      "position": [
-        300,
-        100,
-        120
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        25,
-        25,
-        25
-      ],
-      "material": {
-        "color": "#cd7f32",
-        "metalness": 0.8,
-        "roughness": 0.2
+        "opacity": 0.9,
+        "emissive": 0.1
       }
     }
   ],
   "navigation": {
     "snapPoints": [
       {
-        "name": "Front View",
+        "name": "Overview",
         "cameraPos": [
           0,
-          0,
-          1200
+          300,
+          800
         ],
         "target": [
           0,
@@ -508,7 +240,7 @@
         "cameraPos": [
           0,
           800,
-          600
+          0
         ],
         "target": [
           0,
@@ -517,65 +249,48 @@
         ]
       },
       {
-        "name": "Left Angle",
+        "name": "Triage (Left)",
         "cameraPos": [
-          -600,
+          -400,
           200,
-          1000
+          400
         ],
         "target": [
-          0,
+          -200,
           0,
           0
         ]
       },
       {
-        "name": "Right Angle",
+        "name": "Output (Right)",
         "cameraPos": [
-          600,
+          400,
           200,
-          1000
+          400
         ],
         "target": [
-          0,
+          200,
           0,
           0
-        ]
-      },
-      {
-        "name": "Close Up",
-        "cameraPos": [
-          0,
-          0,
-          600
-        ],
-        "target": [
-          0,
-          0,
-          100
         ]
       }
     ],
     "tour": [
       {
-        "snapPoint": "Front View",
+        "snapPoint": "Overview",
         "seconds": 3
-      },
-      {
-        "snapPoint": "Left Angle",
-        "seconds": 2
-      },
-      {
-        "snapPoint": "Close Up",
-        "seconds": 3
-      },
-      {
-        "snapPoint": "Right Angle",
-        "seconds": 2
       },
       {
         "snapPoint": "Top Down",
-        "seconds": 2
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Triage (Left)",
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Output (Right)",
+        "seconds": 3
       }
     ]
   }

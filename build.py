@@ -8,14 +8,18 @@ USAGE:
 This script:
 1. Copies all .png files from current dir to ./dist/pages/
 2. Generates scene.json for each page in ./dist/scenes/000X/
+   - Checks dist/legos/ for matching scene_XX files
+   - Extracts LDraw geometry if found
+   - Falls back to heuristic cutouts if not
 3. Creates manifest.json listing all scenes
 
-Requires: Python 3.6+, no external dependencies
+Requires: Python 3.6+
 """
 
 import os
 import json
 import shutil
+import re
 from pathlib import Path
 
 # Configuration
@@ -23,12 +27,11 @@ SOURCE_DIR = Path(".")
 DIST_DIR = Path("./dist")
 PAGES_DIR = DIST_DIR / "pages"
 SCENES_DIR = DIST_DIR / "scenes"
+LEGOS_DIR = DIST_DIR / "legos"
 
 # Scene defaults
 SCENE_WIDTH = 1920
 SCENE_HEIGHT = 1080
-BASE_DEPTH = 0
-LAYER_SPACING = 80
 
 def ensure_dirs():
     """Create output directories if they don't exist."""
@@ -58,7 +61,47 @@ def copy_pages(images):
         print(f"  Copied: {img.name} → {dest_name}")
     return copied
 
-def generate_cutouts(page_index, num_cutouts=8):
+def parse_legos(index):
+    """
+    Look for a matching .legos file for the given index.
+    Returns a list of LDraw lines if found, else None.
+    """
+    if not LEGOS_DIR.exists():
+        return None
+
+    # Find file matching pattern scene_{index:02d}_*.legos
+    pattern = f"scene_{index:02d}_*.legos"
+    matches = list(LEGOS_DIR.glob(pattern))
+    
+    if not matches:
+        return None
+    
+    legos_file = matches[0]
+    print(f"  Found LEGOS source: {legos_file.name}")
+    
+    ldraw_lines = []
+    in_ldraw_section = False
+    
+    with open(legos_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            stripped = line.strip()
+            # The transition from YAML to LDraw is marked by '---'
+            # But usually LDraw lines start after the YAML block.
+            # We also look for the marker.
+            
+            if stripped == '---':
+                in_ldraw_section = True
+                continue
+                
+            if in_ldraw_section:
+                # Basic check: LDraw lines start with a digit
+                # Or standard LDraw line types 0-5
+                if stripped and (stripped[0].isdigit() or stripped.startswith('0')):
+                    ldraw_lines.append(stripped)
+    
+    return ldraw_lines
+
+def generate_cutouts(page_index):
     """Generate heuristic cutout regions for layered depth effect."""
     cutouts = []
     
@@ -88,21 +131,6 @@ def generate_cutouts(page_index, num_cutouts=8):
             "label": r["label"]
         })
     
-    # Add some "floating" accent elements
-    accents = [
-        {"x": 0.15, "y": 0.30, "w": 0.08, "h": 0.08, "depth": 180},
-        {"x": 0.48, "y": 0.25, "w": 0.06, "h": 0.10, "depth": 160},
-        {"x": 0.80, "y": 0.35, "w": 0.07, "h": 0.07, "depth": 170},
-    ]
-    
-    for i, a in enumerate(accents):
-        cutouts.append({
-            "id": f"accent-{i+1}",
-            "x": a["x"], "y": a["y"], "w": a["w"], "h": a["h"],
-            "depth": a["depth"],
-            "label": f"Accent {i+1}"
-        })
-    
     return cutouts
 
 def generate_scene_json(page_info):
@@ -110,12 +138,12 @@ def generate_scene_json(page_info):
     idx = page_info["index"]
     page_file = page_info["dest"]
     
-    cutouts = generate_cutouts(idx)
+    # Try to get real LDraw data
+    ldraw_data = parse_legos(idx)
     
-    # Build entities list
     entities = []
     
-    # Background plane with full page texture
+    # Background plane (Always present)
     entities.append({
         "id": "background",
         "type": "plane",
@@ -130,79 +158,76 @@ def generate_scene_json(page_info):
         }
     })
     
-    # Cutout planes at varying depths
-    for cutout in cutouts:
-        w = int(cutout["w"] * SCENE_WIDTH)
-        h = int(cutout["h"] * SCENE_HEIGHT)
-        x = int((cutout["x"] + cutout["w"]/2 - 0.5) * SCENE_WIDTH)
-        y = int((0.5 - cutout["y"] - cutout["h"]/2) * SCENE_HEIGHT)
-        
+    if ldraw_data and len(ldraw_data) > 0:
+        # ---------------------------------------------------------
+        # MODE A: LDraw Scene (Real Data)
+        # ---------------------------------------------------------
+        # We only add the title bar as a cutout for context
         entities.append({
-            "id": cutout["id"],
+            "id": "title-context",
             "type": "cutoutPlane",
             "fromImage": "page",
-            "cutout": {
-                "x": cutout["x"],
-                "y": cutout["y"],
-                "w": cutout["w"],
-                "h": cutout["h"]
-            },
-            "position": [x, y, cutout["depth"]],
-            "size": [w, h],
-            "material": {
-                "transparent": True,
-                "alphaMode": "blend",
-                "opacity": 0.95,
-                "emissive": 0.08
-            },
-            "animation": {
-                "type": "float",
-                "amplitude": 3,
-                "speed": 0.5 + (hash(cutout["id"]) % 10) / 20
-            }
+            "cutout": {"x": 0.05, "y": 0.02, "w": 0.9, "h": 0.12},
+            "position": [0, 450, 100], # High up
+            "size": [1728, 129],
+            "material": {"transparent": True, "opacity": 0.9, "emissive": 0.1}
         })
-    
-    # Add some primitive shapes for diagram feel
-    primitives = [
-        {
-            "id": "connector-line-1",
-            "type": "primitive",
-            "shape": "cylinder",
-            "position": [0, 0, 100],
-            "rotation": [0, 0, 90],
-            "scale": [2, 400, 2],
-            "material": {"color": "#c9a227", "metalness": 0.6, "roughness": 0.3, "opacity": 0.4}
-        },
-        {
-            "id": "node-sphere-1",
-            "type": "primitive",
-            "shape": "sphere",
-            "position": [-300, 100, 120],
-            "rotation": [0, 0, 0],
-            "scale": [25, 25, 25],
-            "material": {"color": "#cd7f32", "metalness": 0.8, "roughness": 0.2}
-        },
-        {
-            "id": "node-sphere-2",
-            "type": "primitive",
-            "shape": "sphere",
-            "position": [300, 100, 120],
-            "rotation": [0, 0, 0],
-            "scale": [25, 25, 25],
-            "material": {"color": "#cd7f32", "metalness": 0.8, "roughness": 0.2}
-        }
-    ]
-    entities.extend(primitives)
-    
-    # Build snap points for navigation
-    snap_points = [
-        {"name": "Front View", "cameraPos": [0, 0, 1200], "target": [0, 0, 0]},
-        {"name": "Top Down", "cameraPos": [0, 800, 600], "target": [0, 0, 0]},
-        {"name": "Left Angle", "cameraPos": [-600, 200, 1000], "target": [0, 0, 0]},
-        {"name": "Right Angle", "cameraPos": [600, 200, 1000], "target": [0, 0, 0]},
-        {"name": "Close Up", "cameraPos": [0, 0, 600], "target": [0, 0, 100]},
-    ]
-    
+        
+        # Navigation suited for 3D model
+        snap_points = [
+            {"name": "Overview", "cameraPos": [0, 300, 800], "target": [0, 0, 0]},
+            {"name": "Top Down", "cameraPos": [0, 800, 0], "target": [0, 0, 0]},
+            {"name": "Triage (Left)", "cameraPos": [-400, 200, 400], "target": [-200, 0, 0]},
+            {"name": "Output (Right)", "cameraPos": [400, 200, 400], "target": [200, 0, 0]},
+        ]
+
+    else:
+        # ---------------------------------------------------------
+        # MODE B: Heuristic Cutouts (Fallback)
+        # ---------------------------------------------------------
+        print(f"  No LEGOS data for page {idx} (or empty). Using cutouts.")
+        ldraw_data = [] # Ensure empty list
+        
+        cutouts = generate_cutouts(idx)
+        for cutout in cutouts:
+            w = int(cutout["w"] * SCENE_WIDTH)
+            h = int(cutout["h"] * SCENE_HEIGHT)
+            x = int((cutout["x"] + cutout["w"]/2 - 0.5) * SCENE_WIDTH)
+            y = int((0.5 - cutout["y"] - cutout["h"]/2) * SCENE_HEIGHT)
+            
+            entities.append({
+                "id": cutout["id"],
+                "type": "cutoutPlane",
+                "fromImage": "page",
+                "cutout": {
+                    "x": cutout["x"],
+                    "y": cutout["y"],
+                    "w": cutout["w"],
+                    "h": cutout["h"]
+                },
+                "position": [x, y, cutout["depth"]],
+                "size": [w, h],
+                "material": {
+                    "transparent": True,
+                    "alphaMode": "blend",
+                    "opacity": 0.95,
+                    "emissive": 0.08
+                },
+                "animation": {
+                    "type": "float",
+                    "amplitude": 3,
+                    "speed": 0.5 + (hash(cutout["id"]) % 10) / 20
+                }
+            })
+            
+        snap_points = [
+            {"name": "Front View", "cameraPos": [0, 0, 1200], "target": [0, 0, 0]},
+            {"name": "Top Down", "cameraPos": [0, 800, 600], "target": [0, 0, 0]},
+            {"name": "Left Angle", "cameraPos": [-600, 200, 1000], "target": [0, 0, 0]},
+            {"name": "Right Angle", "cameraPos": [600, 200, 1000], "target": [0, 0, 0]},
+            {"name": "Close Up", "cameraPos": [0, 0, 600], "target": [0, 0, 100]},
+        ]
+
     scene = {
         "id": f"{idx:04d}",
         "title": f"Page {idx}: {page_info['original'].replace('.png', '')}",
@@ -213,41 +238,35 @@ def generate_scene_json(page_info):
         },
         "camera": {
             "type": "perspective",
-            "position": [0, 0, 1200],
-            "target": [0, 0, 0],
+            "position": snap_points[0]["cameraPos"],
+            "target": snap_points[0]["target"],
             "fov": 50
         },
         "environment": {
-            "background": "#0a0a0f",
+            "background": "#050505",
             "fog": {
                 "enabled": True,
-                "color": "#0a0a0f",
+                "color": "#050505",
                 "near": 800,
-                "far": 2000
+                "far": 3000
             }
         },
         "lights": [
-            {"type": "hemisphere", "skyColor": "#c9a227", "groundColor": "#0a0a0f", "intensity": 0.4},
-            {"type": "directional", "position": [300, 600, 400], "intensity": 1.0, "color": "#ffffff"},
-            {"type": "point", "position": [-400, 300, 500], "intensity": 0.6, "color": "#cd7f32"},
+            {"type": "hemisphere", "skyColor": "#c9a227", "groundColor": "#050505", "intensity": 0.5},
+            {"type": "directional", "position": [300, 800, 500], "intensity": 1.2, "color": "#ffffff"},
+            {"type": "point", "position": [-400, 300, 500], "intensity": 0.8, "color": "#c9a227"},
             {"type": "point", "position": [400, -200, 500], "intensity": 0.4, "color": "#2dd4bf"}
         ],
         "assets": {
             "textures": [
                 {"id": "page", "src": f"../pages/{page_file}"}
             ],
-            "ldraw": []
+            "ldraw": ldraw_data
         },
         "entities": entities,
         "navigation": {
             "snapPoints": snap_points,
-            "tour": [
-                {"snapPoint": "Front View", "seconds": 3},
-                {"snapPoint": "Left Angle", "seconds": 2},
-                {"snapPoint": "Close Up", "seconds": 3},
-                {"snapPoint": "Right Angle", "seconds": 2},
-                {"snapPoint": "Top Down", "seconds": 2}
-            ]
+            "tour": [{"snapPoint": sp["name"], "seconds": 3} for sp in snap_points]
         }
     }
     
@@ -319,7 +338,7 @@ def main():
     
     # Generate manifest
     print("\n[5/5] Writing manifest...")
-    manifest = generate_manifest(pages, scene_paths)
+    generate_manifest(pages, scene_paths)
     
     print("\n" + "=" * 50)
     print("✓ Build complete!")

@@ -10,8 +10,8 @@
     "type": "perspective",
     "position": [
       0,
-      0,
-      1200
+      300,
+      800
     ],
     "target": [
       0,
@@ -21,29 +21,29 @@
     "fov": 50
   },
   "environment": {
-    "background": "#0a0a0f",
+    "background": "#050505",
     "fog": {
       "enabled": true,
-      "color": "#0a0a0f",
+      "color": "#050505",
       "near": 800,
-      "far": 2000
+      "far": 3000
     }
   },
   "lights": [
     {
       "type": "hemisphere",
       "skyColor": "#c9a227",
-      "groundColor": "#0a0a0f",
-      "intensity": 0.4
+      "groundColor": "#050505",
+      "intensity": 0.5
     },
     {
       "type": "directional",
       "position": [
         300,
-        600,
-        400
+        800,
+        500
       ],
-      "intensity": 1.0,
+      "intensity": 1.2,
       "color": "#ffffff"
     },
     {
@@ -53,8 +53,8 @@
         300,
         500
       ],
-      "intensity": 0.6,
-      "color": "#cd7f32"
+      "intensity": 0.8,
+      "color": "#c9a227"
     },
     {
       "type": "point",
@@ -74,7 +74,79 @@
         "src": "../pages/0005.png"
       }
     ],
-    "ldraw": []
+    "ldraw": [
+      "0 FILE shield_scene_05_auden_button.mpd",
+      "0 Name: The Glitch (Critique) - The Auden Button",
+      "0 Author: LEGOS-GPT + Grace Master Builder",
+      "0 !LDRAW_ORG Model",
+      "0 !LICENCE Redistributable under CCAL version 2.0",
+      "0 BFC CERTIFY CCW",
+      "0 //",
+      "0 \u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557",
+      "0 \u2551  THE GLITCH (CRITIQUE): THE AUDEN BUTTON (P3: LOW)              \u2551",
+      "0 \u2551  Conceptual Swap: Homeric to Modernist Disillusionment          \u2551",
+      "0 \u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d",
+      "0 //",
+      "0 LEGOS FRAMEWORK:",
+      "0 Location: Critique Chamber - Mode Toggle Interface",
+      "0 Entity: Auden Button, Homeric Mode, Modernist Mode, Audio+Visual layers",
+      "0 Goal: Provide artistic commentary, contrast eras, give user agency",
+      "0 Obstacle: Accidental activation, jarring transitions",
+      "0 Shift: Button press swaps entire audiovisual experience",
+      "0 Solution: Toggle between gold/bronze and gray/industrial aesthetics",
+      "0 //",
+      "0 // PRIORITY: P3 LOW - Artistic twist, not core functionality",
+      "0 //",
+      "0 STEP 01: FLOOR - Split Chamber (Gold | Gray)",
+      "0 // Left side: Homeric gold",
+      "1  115  -80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat",
+      "0 // Right side: Modernist gray",
+      "1  71  80 0 0  1 0 0  0 1 0  0 0 1  parts/3811.dat",
+      "0 STEP",
+      "0 STEP 02: HOMERIC SIMULATION PANEL (Left)",
+      "0 // Gold medallion representing Order/Gold mode",
+      "1  115  -80 -24 0  1 0 0  0 1 0  0 0 1  parts/6177.dat",
+      "1  297  -80 -48 0  1 0 0  0 1 0  0 0 1  parts/6177.dat",
+      "0 // Lyre icon for heroic sounds",
+      "1  297  -100 -72 -20  1 0 0  0 1 0  0 0 1  parts/93552.dat",
+      "0 // Bronze texture indicator",
+      "1  366  -60 -72 -20  1 0 0  0 1 0  0 0 1  parts/3070b.dat",
+      "0 STEP",
+      "0 STEP 03: MODERNIST CRITIQUE PANEL (Right)",
+      "0 // Gray/dark factory representing Chaos/Glitch mode",
+      "1  71  80 -24 0  1 0 0  0 1 0  0 0 1  parts/3010.dat",
+      "1  71  80 -48 0  1 0 0  0 1 0  0 0 1  parts/3010.dat",
+      "1  0  80 -72 0  1 0 0  0 1 0  0 0 1  parts/3010.dat",
+      "0 // Smokestacks for industrial imagery",
+      "1  71  60 -24 -20  1 0 0  0 1 0  0 0 1  parts/3062b.dat",
+      "1  71  100 -24 -20  1 0 0  0 1 0  0 0 1  parts/3062b.dat",
+      "0 // Sound wave distortion",
+      "1  0  80 -96 0  1 0 0  0 1 0  0 0 1  parts/50950.dat",
+      "0 STEP",
+      "0 STEP 04: AUDEN BUTTON (Center)",
+      "0 // Large toggle button between two worlds",
+      "1  7  0 -24 0  1 0 0  0 1 0  0 0 1  parts/6141.dat",
+      "1  15  0 -48 0  1 0 0  0 1 0  0 0 1  parts/4073.dat",
+      "0 // Toggle switch mechanism",
+      "1  14  0 -72 0  1 0 0  0 1 0  0 0 1  parts/4599.dat",
+      "0 STEP",
+      "0 STEP 05: UI TOGGLE LABEL",
+      "0 // \"Artistic Twist / Critique on Demand\" marker",
+      "1  14  0 -96 20  1 0 0  0 1 0  0 0 1  parts/3070b.dat",
+      "0 STEP",
+      "0 STEP 06: TRANSITION ARROW (Bidirectional)",
+      "0 // Arrow from Homeric to Modernist",
+      "1  14  -40 -36 0  0 0 1  0 1 0  -1 0 0  parts/3705.dat",
+      "0 // Arrow from Modernist to Homeric",
+      "1  14  40 -36 0  0 0 -1  0 1 0  1 0 0  parts/3705.dat",
+      "0 STEP",
+      "0 STEP 07: CONCEPT SUMMARY BANNER",
+      "0 // Summary at bottom",
+      "1  115  -40 0 60  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "1  71  40 0 60  1 0 0  0 1 0  0 0 1  parts/3069b.dat",
+      "0 STEP",
+      "0 NOFILE"
+    ]
   },
   "entities": [
     {
@@ -102,7 +174,7 @@
       }
     },
     {
-      "id": "title-bar",
+      "id": "title-context",
       "type": "cutoutPlane",
       "fromImage": "page",
       "cutout": {
@@ -113,8 +185,8 @@
       },
       "position": [
         0,
-        453,
-        200
+        450,
+        100
       ],
       "size": [
         1728,
@@ -122,380 +194,19 @@
       ],
       "material": {
         "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.55
-      }
-    },
-    {
-      "id": "region-1",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.02,
-        "y": 0.18,
-        "w": 0.28,
-        "h": 0.35
-      },
-      "position": [
-        -652,
-        156,
-        60
-      ],
-      "size": [
-        537,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.7
-      }
-    },
-    {
-      "id": "region-2",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.32,
-        "y": 0.18,
-        "w": 0.36,
-        "h": 0.35
-      },
-      "position": [
-        0,
-        156,
-        90
-      ],
-      "size": [
-        691,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.85
-      }
-    },
-    {
-      "id": "region-3",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.7,
-        "y": 0.18,
-        "w": 0.28,
-        "h": 0.35
-      },
-      "position": [
-        652,
-        156,
-        120
-      ],
-      "size": [
-        537,
-        378
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.75
-      }
-    },
-    {
-      "id": "region-4",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.02,
-        "y": 0.56,
-        "w": 0.45,
-        "h": 0.22
-      },
-      "position": [
-        -489,
-        -183,
-        150
-      ],
-      "size": [
-        864,
-        237
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.8
-      }
-    },
-    {
-      "id": "region-5",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.5,
-        "y": 0.56,
-        "w": 0.48,
-        "h": 0.22
-      },
-      "position": [
-        460,
-        -183,
-        180
-      ],
-      "size": [
-        921,
-        237
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.5
-      }
-    },
-    {
-      "id": "region-6",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.35,
-        "y": 0.8,
-        "w": 0.3,
-        "h": 0.15
-      },
-      "position": [
-        0,
-        -405,
-        210
-      ],
-      "size": [
-        576,
-        162
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.95
-      }
-    },
-    {
-      "id": "accent-1",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.15,
-        "y": 0.3,
-        "w": 0.08,
-        "h": 0.08
-      },
-      "position": [
-        -595,
-        172,
-        180
-      ],
-      "size": [
-        153,
-        86
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.75
-      }
-    },
-    {
-      "id": "accent-2",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.48,
-        "y": 0.25,
-        "w": 0.06,
-        "h": 0.1
-      },
-      "position": [
-        19,
-        216,
-        160
-      ],
-      "size": [
-        115,
-        108
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.85
-      }
-    },
-    {
-      "id": "accent-3",
-      "type": "cutoutPlane",
-      "fromImage": "page",
-      "cutout": {
-        "x": 0.8,
-        "y": 0.35,
-        "w": 0.07,
-        "h": 0.07
-      },
-      "position": [
-        643,
-        124,
-        170
-      ],
-      "size": [
-        134,
-        75
-      ],
-      "material": {
-        "transparent": true,
-        "alphaMode": "blend",
-        "opacity": 0.95,
-        "emissive": 0.08
-      },
-      "animation": {
-        "type": "float",
-        "amplitude": 3,
-        "speed": 0.8
-      }
-    },
-    {
-      "id": "connector-line-1",
-      "type": "primitive",
-      "shape": "cylinder",
-      "position": [
-        0,
-        0,
-        100
-      ],
-      "rotation": [
-        0,
-        0,
-        90
-      ],
-      "scale": [
-        2,
-        400,
-        2
-      ],
-      "material": {
-        "color": "#c9a227",
-        "metalness": 0.6,
-        "roughness": 0.3,
-        "opacity": 0.4
-      }
-    },
-    {
-      "id": "node-sphere-1",
-      "type": "primitive",
-      "shape": "sphere",
-      "position": [
-        -300,
-        100,
-        120
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        25,
-        25,
-        25
-      ],
-      "material": {
-        "color": "#cd7f32",
-        "metalness": 0.8,
-        "roughness": 0.2
-      }
-    },
-    {
-      "id": "node-sphere-2",
-      "type": "primitive",
-      "shape": "sphere",
-      "position": [
-        300,
-        100,
-        120
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        25,
-        25,
-        25
-      ],
-      "material": {
-        "color": "#cd7f32",
-        "metalness": 0.8,
-        "roughness": 0.2
+        "opacity": 0.9,
+        "emissive": 0.1
       }
     }
   ],
   "navigation": {
     "snapPoints": [
       {
-        "name": "Front View",
+        "name": "Overview",
         "cameraPos": [
           0,
-          0,
-          1200
+          300,
+          800
         ],
         "target": [
           0,
@@ -508,7 +219,7 @@
         "cameraPos": [
           0,
           800,
-          600
+          0
         ],
         "target": [
           0,
@@ -517,65 +228,48 @@
         ]
       },
       {
-        "name": "Left Angle",
+        "name": "Triage (Left)",
         "cameraPos": [
-          -600,
+          -400,
           200,
-          1000
+          400
         ],
         "target": [
-          0,
+          -200,
           0,
           0
         ]
       },
       {
-        "name": "Right Angle",
+        "name": "Output (Right)",
         "cameraPos": [
-          600,
+          400,
           200,
-          1000
+          400
         ],
         "target": [
-          0,
+          200,
           0,
           0
-        ]
-      },
-      {
-        "name": "Close Up",
-        "cameraPos": [
-          0,
-          0,
-          600
-        ],
-        "target": [
-          0,
-          0,
-          100
         ]
       }
     ],
     "tour": [
       {
-        "snapPoint": "Front View",
+        "snapPoint": "Overview",
         "seconds": 3
-      },
-      {
-        "snapPoint": "Left Angle",
-        "seconds": 2
-      },
-      {
-        "snapPoint": "Close Up",
-        "seconds": 3
-      },
-      {
-        "snapPoint": "Right Angle",
-        "seconds": 2
       },
       {
         "snapPoint": "Top Down",
-        "seconds": 2
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Triage (Left)",
+        "seconds": 3
+      },
+      {
+        "snapPoint": "Output (Right)",
+        "seconds": 3
       }
     ]
   }
